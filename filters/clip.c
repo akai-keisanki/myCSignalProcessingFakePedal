@@ -1,3 +1,5 @@
+#include "clip.h"
+
 float clip(float x, float thr)
 {
   if (x > thr) return thr;

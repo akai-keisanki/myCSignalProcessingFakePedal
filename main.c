@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "filters/pedal.c"
+#include "filters/pedal.h"
 
 int32_t main()
 {

@@ -1,18 +1,15 @@
-#include <stdint.h>
-#include <stdio.h>
+#include "pedal.h"
 
-#include "clip.c"
+#include "clip.h"
 
-typedef int16_t sample_size;
-
-void apply_filters(FILE *output_wav, FILE *input_wav, char[] filter_list)
+void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
 {
-  sample_size input_sample, output_sample;
+  sample_size sample;
   float x, v;
 
   while (fread(&sample, sizeof(sample_size), 1, input_wav))
   {
-    x = input_sample / (float)(1 << (sizeof(sample_size)*8 - 1));
+    x = sample / (float)(1 << (sizeof(sample_size)*8 - 1));
     
     switch (*filter_list)
     {
@@ -23,16 +20,16 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char[] filter_list)
       ++filter_list;
       v += (*filter_list - '0') * 0.01f;
 
-      x = clip(x, am);
+      x = clip(x, v);
 
       break;
     }
 
     x = clip(x, 1.0f);
 
-    output_sample = (int16_t)(x * (float)(1 << (sizeof(sample_size)*8 - 1) - 1));
+    sample = (int16_t)(x * (float)(1 << (sizeof(sample_size)*8 - 1) - 1));
 
-    fwrite(&output_sample, sizeof(sample_size), 1, output_wav);
+    fwrite(&sample, sizeof(sample_size), 1, output_wav);
 
     ++filter_list;
   }

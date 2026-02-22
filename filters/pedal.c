@@ -30,7 +30,7 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char[] filter_list)
 
     x = clip(x, 1.0f);
 
-    output_sample = (int16_t)(x * (float)(1 << (sizeof(sample_size)*8 - 1)));
+    output_sample = (int16_t)(x * (float)(1 << (sizeof(sample_size)*8 - 1) - 1));
 
     fwrite(&output_sample, sizeof(sample_size), 1, output_wav);
 

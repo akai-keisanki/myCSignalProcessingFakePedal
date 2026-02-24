@@ -34,11 +34,17 @@ An `output.wav` shall be generated after running `fake_pedal` is finished with e
 
 ## Working with filters
 
-Just after starting `fake_pedal`, the program will read a string without spaces that should contain the list of filters represented by their own characters with their possible trailling values.
+Just after starting `fake_pedal`, the program will read a string which represents a list of filters to apply, represented by their characters, possibly immediately followed by 1-2 4-digit numeric values.
 
 Here is a simple list of the currently available filters:
 
-- `clip`: Type `C` followed by a 2-digit number representing the percentage of the maximum signal (`1.0`) that should be the new maximum (and negative minimum), clipping higher values to it. It is used after all effects to clip the output to `1.0`.
+- `multiply`: Type `M` followed by a 4-digit value representing the per mille of the multiplier applyed to the signal.
+
+- `clip`: Type `C` followed by a 4-digit value representing the per ten thousand of the maximum signal (`1.0`) that should be the new maximum (and negative minimum), clipping higher values to it. It is automatically always used to clip the output to `1.0` after all operations.
+
+- `equalise`: Type `E` followed by 2 4-digit values representing the per mille of multipliers applyed to the high and
+
+- `drive`: Type `D` followed by a 4-digit value representing the per ten thousand of the maximum signal (`1.0`) that should be the new maximum (and negative minimum), flattening higher values to it.
 
 ## Adding your own filters
 

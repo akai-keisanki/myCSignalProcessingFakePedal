@@ -48,6 +48,8 @@ Here is a simple list of the currently available filters:
 
 - `saturate`: Type `S` followed by a 4-digit value representing the percent of the multiplier applyed to the signal that is saturated with the hyperbolic tangent.
 
+- `delay`: Type `D` followed by 2 4-digit values representing the number of steps (that will be multiplied by 10) to be delayed and the per ten thousand of the multiplicator applyed to the delayed signal to be summed.
+
 
 ## Adding your own filters
 

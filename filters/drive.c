@@ -1,6 +1,8 @@
 #include "drive.h"
 
+#include "clip.h"
+
 float drive(float x, float thr)
 {
-  return 0.0f; // TODO
+  return (clip(x, thr) + x)/2;
 }

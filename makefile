@@ -6,18 +6,22 @@ ROOT_OBJS = $(ROOT_SRCS:.c=.o)
 
 TARGET = fake_pedal
 
+CC = cc
+
+LINKER_FLAGS = -lm
+
 $(TARGET): $(ROOT_OBJS) $(FILTERS_OBJS)
-	cc -o $(TARGET) $(ROOT_OBJS) $(FILTERS_OBJS)
+	$(CC) -o $(TARGET) $(ROOT_OBJS) $(FILTERS_OBJS) $(LINKER_FLAGS)
 	chmod +x $(TARGET)
 
 main.o: main.c
-	cc -c -o main.o main.c
+	$(CC) -c -o main.o main.c
 
 pedal.o: pedal.c
-	cc -c -o pedal.o pedal.c
+	$(CC) -c -o pedal.o pedal.c
 
 filters/%.o: filters/%.c
-	cc -c -o $@ $^
+	$(CC) -c -o $@ $^
 
 clean:
 	rm fake_pedal main.o pedal.o filters/*.o

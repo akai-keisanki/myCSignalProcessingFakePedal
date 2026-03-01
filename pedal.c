@@ -1,16 +1,32 @@
 #include <stddef.h>
 
-#include "filters/util_time_recorder.h"
-
 #include "filters/multiply.h"
 #include "filters/clip.h"
-#include "filters/equalise.h"
+#include "filters/low_pass.h"
+#include "filters/high_pass.h"
+#include "filters/mid_pass.h"
 #include "filters/pitch_shift.h"
+#include "filters/saturate.h"
+#include "filters/delay.h"
 #include "filters/drive.h"
 
 #include "pedal.h"
 
 const sample_size SAMPLE_SCALING_FACTOR = 1 << (sizeof(sample_size)*8 - 1);
+
+float parse_4_digit(char **filter_p)
+{
+  float v = 0.0f;
+  v += (**filter_p - '0') * 0.1f;
+  ++*filter_p;
+  v += (**filter_p - '0') * 0.01f;
+  ++*filter_p;
+  v += (**filter_p - '0') * 0.001f;
+  ++*filter_p;
+  v += (**filter_p - '0') * 0.0001f;
+  ++*filter_p;
+  return v;
+}
 
 void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
 {
@@ -19,13 +35,11 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
   char *filter_p;
   char curr_filter;
 
-  set_record_size(10000);
+  struct record_data *delay_record = init_record_data(100000);
 
-  while (fread(&sample, sizeof(sample_size), 1, input_wav))
+  while (fread(&sample, sizeof(sample_size), 1, input_wav) == 1)
   {
     x = sample / (float)SAMPLE_SCALING_FACTOR;
-
-    push_input_record(x);
 
     filter_p = filter_list;
     while (curr_filter = *filter_p++)
@@ -34,33 +48,22 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
       {
       case 'M':
       case 'C':
-      case 'E':
+      case 'l':
+      case 'h':
+      case 'm':
       case 'P':
+      case 'S':
+      case 'd':
       case 'D':
-        v = (*filter_p - '0') * 1.0f;
-        ++filter_p;
-        v += (*filter_p - '0') * 0.1f;
-        ++filter_p;
-        v += (*filter_p - '0') * 0.01f;
-        ++filter_p;
-        v += (*filter_p - '0') * 0.02f;
-        ++filter_p;
-
+        v = parse_4_digit(&filter_p);
         break;
       }
 
       switch (curr_filter)
       {
-      case 'E':
-        w = (*filter_p - '0') * 1.0f;
-        ++filter_p;
-        w += (*filter_p - '0') * 0.1f;
-        ++filter_p;
-        w += (*filter_p - '0') * 0.01f;
-        ++filter_p;
-        w += (*filter_p - '0') * 0.02f;
-        ++filter_p;
-
+      case 'm':
+      case 'd':
+        w = parse_4_digit(&filter_p);
         break;
       }
 
@@ -71,21 +74,34 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
         break;
 
       case 'C':
-        v /= 10.0f;
         x = clip(x, v);
         break;
 
-      case 'E':
-        v /= 10.0f;
-        x = equalise(x, v, w);
+      case 'l':
+        x = low_pass(x, v);
+        break;
+
+      case 'h':
+        x = high_pass(x, v);
+        break;
+
+      case 'm':
+        x = mid_pass(x, v, w);
         break;
 
       case 'P':
         x = pitch_shift(x, v);
         break;
 
+      case 'S':
+        x = saturate(x, v);
+        break;
+
+      case 'd':
+        x = delay(delay_record, x, v, w);
+        break;
+
       case 'D':
-        v /= 10.0f;
         x = drive(x, v);
         break;
       }
@@ -93,12 +109,10 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
 
     x = clip(x, 1.0f);
 
-    push_output_record(x);
-
     sample = x * (SAMPLE_SCALING_FACTOR - 1);
 
     fwrite(&sample, sizeof(sample_size), 1, output_wav);
   }
 
-  free_record();
+  free_record_data(delay_record);
 }

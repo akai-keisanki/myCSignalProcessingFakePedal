@@ -2,63 +2,69 @@
 
 #include <stdlib.h>
 
-size_t record_size;
-size_t input_record_index, output_record_index;
-float *input_record, *output_record;
+struct record_data
+{
+  size_t size;
+  size_t input_index, output_index;
+  float *input, *output;
+};
 
-void increment_record_index(size_t *record_index)
+void increment_record_index(struct record_data *data, size_t *record_index)
 {
   ++*record_index;
-  if (*record_index >= record_size) *record_index = 0;
+  if (*record_index >= data->size) *record_index = 0;
 }
 
-size_t get_past_record_index(size_t record_index, size_t steps)
+size_t get_past_record_index(struct record_data *data, size_t record_index, size_t steps)
 {
   size_t index = record_index;
-  steps %= record_size;
+  steps %= data->size;
   if (steps > index)
   {
     steps -= index + 1;
-    index = record_size - 1;
+    index = data->size - 1;
   }
   index -= steps;
   return index;
 }
 
-void set_record_size(size_t size)
+struct record_data *init_record_data(size_t size)
 {
-  input_record_index = 0;
-  output_record_index = 0;
-  record_size = size;
-  input_record = malloc(sizeof(float *) * record_size);
-  output_record = malloc(sizeof(float *) * record_size);
+  struct record_data *data = malloc(sizeof(struct record_data));
+  data->input_index = 0;
+  data->output_index = 0;
+  data->size = size;
+  data->input = malloc(sizeof(float) * data->size);
+  data->output = malloc(sizeof(float) * data->size);
+  return data;
 }
 
-void push_input_record(float x)
+void push_input_record(struct record_data *data, float x)
 {
-  input_record[input_record_index] = x;
-  increment_record_index(&input_record_index);
+  data->input[data->input_index] = x;
+  increment_record_index(data, &data->input_index);
 }
 
-void push_output_record(float y)
+void push_output_record(struct record_data *data, float y)
 {
-  output_record[output_record_index] = y;
-  increment_record_index(&output_record_index);
+  data->output[data->output_index] = y;
+  increment_record_index(data, &data->output_index);
 }
 
-float get_past_input(size_t steps)
+float get_past_input(struct record_data *data, size_t steps)
 {
-  return input_record[get_past_record_index(input_record_index, steps + 1)];
+  return data->input[get_past_record_index(data, data->input_index, steps + 1)];
 }
 
-float get_past_output(size_t steps)
+float get_past_output(struct record_data *data, size_t steps)
 {
-  return output_record[get_past_record_index(output_record_index, steps)];
+  return data->output[get_past_record_index(data, data->output_index, steps)];
 }
 
-void free_record(void)
+void free_record_data(struct record_data *data)
 {
-  free(input_record);
-  free(output_record);
+  free(data->input);
+  free(data->output);
+  free(data);
 }
 

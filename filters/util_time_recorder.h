@@ -3,14 +3,16 @@
 
 #include <stddef.h>
 
-void set_record_size(size_t size);
+struct record_data;
 
-void push_input_record(float x);
-void push_output_record(float y);
+struct record_data *init_record_data(size_t size);
 
-float get_past_input(size_t steps);
-float get_past_output(size_t steps);
+void push_input_record(struct record_data *data, float x);
+void push_output_record(struct record_data *data, float y);
 
-void free_record(void);
+float get_past_input(struct record_data *data, size_t steps);
+float get_past_output(struct record_data *data, size_t steps);
+
+void free_record_data(struct record_data *data);
 
 #endif

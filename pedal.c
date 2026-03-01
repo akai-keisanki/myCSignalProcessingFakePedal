@@ -4,7 +4,7 @@
 #include "filters/clip.h"
 #include "filters/low_pass.h"
 #include "filters/high_pass.h"
-#include "filters/mid_pass.h"
+#include "filters/mid_scoop.h"
 #include "filters/pitch_shift.h"
 #include "filters/saturate.h"
 #include "filters/delay.h"
@@ -86,7 +86,7 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
         break;
 
       case 'm':
-        x = mid_pass(x, v, w);
+        x = mid_scoop(x, v, w);
         break;
 
       case 'P':

@@ -40,15 +40,26 @@ Here is a simple list of the currently available filters:
 
 - `clip`: Type `C` followed by a 4-digit value representing the per ten thousand of the maximum signal (`1.0`) that should be the new maximum (and negative minimum), clipping higher values to it. It is automatically always used to clip the output to `1.0` after all operations.
 
-- `low_pass`: Type `l` followed by a 4-digit value representing the per ten thousand of the high cut coefficient.
+- `low_pass`: Type `l` followed by a 4-digit value representing the per ten thousand of the high cut coefficient. Shall not be used 2 or more times in the same execution of the pedal.
 
-- `high_pass`: Type `h` followed by a 4-digit value representing the per ten thousand of the low cut coefficient.
+- `high_pass`: Type `h` followed by a 4-digit value representing the per ten thousand of the low cut coefficient. Shall not be used 2 or more times in the same execution of the pedal.
 
-- `mid_scoop`: Type `m` followed by 2 4-digit values representing the per ten thousand of the low and high cut coefficients.
+- `mid_scoop`: Type `m` followed by 2 4-digit values representing the per ten thousand of the low and high cut coefficients. Shall not be used 2 or more times in the same execution of the pedal.
 
 - `saturate`: Type `S` followed by a 4-digit value representing the percent of the multiplier applyed to the signal that is saturated with the hyperbolic tangent.
 
-- `delay`: Type `D` followed by 2 4-digit values representing the number of steps (that will be multiplied by 10) to be delayed and the per ten thousand of the multiplicator applyed to the delayed signal to be summed.
+- `delay`: Type `d` followed by 2 4-digit values representing the number of steps (that will be multiplied by 10) to be delayed and the per ten thousand of the multiplicator applyed to the delayed signal to be summed.
+
+- `distortion`: Type `D` followed by a 4-digit value representing the per ten thousand of the maximum signal (`1.0`) that should be the new maximum (and negative minimum), clipping higher values to it and blending with the signal.
+
+Characters without use such as `-`, `,` or `.` can be used as separators.
+
+Here are some example settings:
+
+- Fuzz: `S0300,C0300,M0150,l1500`;
+- Warm tone: `M0250,d04003333,l0200,m01000300`;
+- Lo-fi tone: `h0600,l0900,S0150,C2000`;
+- Warm drive: `l2000,S0150,D0800,m02000700`
 
 
 ## Adding your own filters

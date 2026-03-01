@@ -7,6 +7,8 @@ struct record_data;
 
 struct record_data *init_record_data(size_t size);
 
+size_t get_record_size(struct record_data *data);
+
 void push_input_record(struct record_data *data, float x);
 void push_output_record(struct record_data *data, float y);
 

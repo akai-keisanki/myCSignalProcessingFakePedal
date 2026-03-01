@@ -21,7 +21,7 @@ make fake_pedal
 
 ## Using the right files
 
-Due to technical difficulties, this program can only process 16b WAV files with a of exactly 44B. The file should be named `input.wav` and be in the working directory.
+Due to technical difficulties, this program can only process 16b WAV files with a of exactly 44B (44100Hz recommended). The file should be named `input.wav` and be in the working directory.
 
 You can use Make to generate an `input.wav` from a `pre_input.wav` file in your input directory, formating it with `ffmpeg` to the required conventions:
 ```sh
@@ -46,6 +46,8 @@ Here is a simple list of the currently available filters:
 
 - `mid_scoop`: Type `m` followed by 2 4-digit values representing the per ten thousand of the low and high cut coefficients. Shall not be used 2 or more times in the same execution of the pedal.
 
+- `pitch_shift` (BETA): Type `P` followed by a digit representing the signal (`0` for `+`, `1` or other for `-`) and 3 digits representing the per ten of the number of semitones to shift.
+
 - `saturate`: Type `S` followed by a 4-digit value representing the percent of the multiplier applyed to the signal that is saturated with the hyperbolic tangent.
 
 - `delay`: Type `d` followed by 2 4-digit values representing the number of steps (that will be multiplied by 10) to be delayed and the per ten thousand of the multiplicator applyed to the delayed signal to be summed.
@@ -59,7 +61,7 @@ Here are some example settings:
 - Fuzz: `S0300,C0300,M0150,l1500`;
 - Warm tone: `M0250,d04003333,l0200,m01000300`;
 - Lo-fi tone: `h0600,l0900,S0150,C2000`;
-- Warm drive: `l2000,S0150,D0800,m02000700`
+- Warm drive: `l2000,S0150,D0800,m02000700`;
 
 
 ## Adding your own filters

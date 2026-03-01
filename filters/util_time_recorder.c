@@ -39,6 +39,11 @@ struct record_data *init_record_data(size_t size)
   return data;
 }
 
+size_t get_record_size(struct record_data *data)
+{
+  return data->size;
+}
+
 void push_input_record(struct record_data *data, float x)
 {
   data->input[data->input_index] = x;

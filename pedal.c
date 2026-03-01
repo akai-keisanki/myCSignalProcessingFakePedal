@@ -36,6 +36,7 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
   char curr_filter;
 
   struct record_data *delay_record = init_record_data(100000);
+  struct record_data *pitch_shift_record = init_record_data(300);
 
   while (fread(&sample, sizeof(sample_size), 1, input_wav) == 1)
   {
@@ -90,7 +91,7 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
         break;
 
       case 'P':
-        x = pitch_shift(x, v);
+        x = pitch_shift(pitch_shift_record, x, v);
         break;
 
       case 'S':
@@ -115,4 +116,5 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
   }
 
   free_record_data(delay_record);
+  free_record_data(pitch_shift_record);
 }

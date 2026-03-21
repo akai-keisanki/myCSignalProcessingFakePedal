@@ -1,5 +1,4 @@
 # myCSignalProcessingFakePedal
-
 I want to make a fake pedal in C to make some effects in my WAV files.
 
 ## Compiling the project To run this software, you must compile it from the source code.
@@ -64,7 +63,7 @@ Here are some example settings:
 - Lo-fi tone: `h0600,l0900,S0150,C1000`;
 - Warm drive: `l2000,S0150,D0800,m02000700`;
 - Bigger impression: `H10125000,S0150,m02000200,d03001000`;
-- Hard drive: `S0300,d03005000,C0300,M0200,m02000200,l1500`;
+- Hard drive: `S0300,d03005000,C0300,M0200,m02000200,l1500,M0200`;
 
 
 ## Adding your own filters

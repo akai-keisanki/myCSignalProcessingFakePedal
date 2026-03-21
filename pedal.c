@@ -42,7 +42,7 @@ void free_records(struct records *records)
   free(records);
 }
 
-float parse_4_digit(char **filter_p)
+float parse_4_digit(const char **filter_p)
 {
   float v = 0.0f;
   v += (**filter_p - '0') * 0.1f;
@@ -56,7 +56,7 @@ float parse_4_digit(char **filter_p)
   return v;
 }
 
-float apply_filters(struct records *records, float x, char *filter_list)
+float apply_filters(struct records *records, float x, const char *filter_list)
 {
   char curr_filter;
   float v, w;
@@ -137,7 +137,7 @@ float apply_filters(struct records *records, float x, char *filter_list)
   return x;
 }
 
-void pedal_in_files(FILE *output_wav, FILE *input_wav, char *filter_list)
+void pedal_in_files(FILE *output_wav, FILE *input_wav, const char *filter_list)
 {
   sample_size sample;
   float x;

@@ -2,6 +2,9 @@
 
 This project implements signal processing features in C for WAV files, emulating a pedalboard.
 
+> [!WARNING]
+> This project is recently changing a lot. This description is being updated. Please consider using the version before of the commit that adds this warning.
+
 ## Setup: Compiling the project
 
 To run this software, you must compile it from the source code.

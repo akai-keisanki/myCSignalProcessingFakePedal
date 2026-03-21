@@ -30,7 +30,7 @@ int32_t main()
   
 
   fprintf(stderr, "Beginning filter application from input.wav to output.wav...\n");
-  apply_filters(output_wav, input_wav, filter_list);
+  pedal_in_files(output_wav, input_wav, filter_list);
   fprintf(stderr, "Finished filter application from input.wav to output.wav.\n");
 
 

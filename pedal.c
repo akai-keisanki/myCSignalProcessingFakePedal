@@ -9,6 +9,7 @@
 #include "filters/saturate.h"
 #include "filters/delay.h"
 #include "filters/drive.h"
+#include "filters/harmonize.h"
 
 #include "pedal.h"
 
@@ -36,7 +37,8 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
   char curr_filter;
 
   struct record_data *delay_record = init_record_data(100000);
-  struct record_data *pitch_shift_record = init_record_data(300);
+  struct record_data *pitch_shift_record = init_record_data(5000);
+  struct record_data *harmonize_record = init_record_data(5000);
 
   while (fread(&sample, sizeof(sample_size), 1, input_wav) == 1)
   {
@@ -56,6 +58,7 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
       case 'S':
       case 'd':
       case 'D':
+      case 'H':
         v = parse_4_digit(&filter_p);
         break;
       }
@@ -64,6 +67,7 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
       {
       case 'm':
       case 'd':
+      case 'H':
         w = parse_4_digit(&filter_p);
         break;
       }
@@ -105,6 +109,10 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
       case 'D':
         x = drive(x, v);
         break;
+
+      case 'H':
+        x = harmonize(harmonize_record, x, v, w);
+        break;
       }
     }
 
@@ -117,4 +125,5 @@ void apply_filters(FILE *output_wav, FILE *input_wav, char *filter_list)
 
   free_record_data(delay_record);
   free_record_data(pitch_shift_record);
+  free_record_data(harmonize_record);
 }

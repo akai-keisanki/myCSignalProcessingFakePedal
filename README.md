@@ -59,9 +59,12 @@ Characters without use such as `-`, `,` or `.` can be used as separators.
 Here are some example settings:
 
 - Fuzz: `S0300,C0300,M0150,l1500`;
-- Warm tone: `M0250,d04003333,l0200,m01000300`;
-- Lo-fi tone: `h0600,l0900,S0150,C2000`;
+- Warm tone: `M0150,d04003333,l0200,m01000300`;
+- Nasal drive: `S0200,l0700,h0700,D0500`;
+- Lo-fi tone: `h0600,l0900,S0150,C1000`;
 - Warm drive: `l2000,S0150,D0800,m02000700`;
+- Bigger impression: `H10125000,S0150,m02000200,d03001000`;
+- Hard drive: `S0300,d03005000,C0300,M0200,m02000200,l1500`;
 
 
 ## Adding your own filters

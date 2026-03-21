@@ -1,8 +1,8 @@
-#include "pitch_shift.h"
+#include "harmonize.h"
 
 #include <math.h>
 
-float pitch_shift(struct record_data *grain, float x, float uni)
+float harmonize(struct record_data *grain, float x, float uni, float mix)
 {
   static float read_pos = 0.0f;
   static size_t pos = -1;
@@ -13,5 +13,5 @@ float pitch_shift(struct record_data *grain, float x, float uni)
   float dfreq = powf(2.0f, steps / 12.0f);
   read_pos += dfreq;
   read_pos = fmodf(read_pos, get_record_size(grain) * 3);
-  return get_past_input(grain, pos - floorf(read_pos));
+  return x + get_past_input(grain, pos - floorf(read_pos)) * mix;
 }

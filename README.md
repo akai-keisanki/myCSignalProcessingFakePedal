@@ -48,7 +48,7 @@ An `output.wav` shall be generated after `fake_pedal`'s running is finished with
 The options are:
 
 - `f`: process files. Must be followed by 2 arguments: the input and output proper WAV files.
-- `l`: process and play live audio with `sox`.
+- `l`: process and play live audio with SoX.
 
 You can get a brief description of the command line structure with `fake_pedal help`.
 

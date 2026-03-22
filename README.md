@@ -2,12 +2,15 @@
 
 This project implements signal processing features in C for WAV files, emulating a pedalboard.
 
-> [!WARNING]
-> This project is recently changing a lot. This description is being updated. It is recommended using the version before of the commit that adds this warning.
->
-> If you want to use this version, try running `fake_pedal help`;
+## Setup
 
-## Setup: Compiling the project
+### Requirements
+
+- SoX (Sound eXchange): required for the live processing option.
+  - <https://sox.sourceforge.net>
+  - Install via `sudo apt install sox` for Debian/Ubuntu or `brew install sox` for macOS.
+
+### Compiling the project
 
 To run this software, you must compile it from the source code.
 
@@ -39,9 +42,19 @@ make input.wav
 
 An `output.wav` shall be generated after `fake_pedal`'s running is finished with exit code `0`.
 
+### Command-line usage
+
+`fake_pedal` requires a filter list string as its first argument and a following option to work.
+The options are:
+
+- `f`: process files. Must be followed by 2 arguments: the input and output proper WAV files.
+- `l`: process and play live audio with `sox`.
+
+You can get a brief description of the command line structure with `fake_pedal help`.
+
 ### Using filters
 
-Just after starting `fake_pedal`, the program will read a string (`%s`) from `stdin` which represents a list of filters to apply, represented by their characters, possibly immediately followed by 1-2 4-digit numeric values.
+Each filter in the filter list string is represented by its character immediately followed by 1-2 4-digit numeric values. They are listed in order of application.
 
 Here is a simple list of the currently available filters:
 
@@ -72,7 +85,7 @@ Here is a simple list of the currently available filters:
 
 ### Examples
 
-Example settings that you can try:
+Example filter list strings that you can try:
 
 - Fuzz: `S0300,C0300,M0150,l1500`;
 - Warm tone: `M0150,d04003333,l0200,m01000300`;
@@ -82,10 +95,13 @@ Example settings that you can try:
 - Bigger impression: `H10125000,S0150,m02000200,d03001000`;
 - Hard drive: `S0300,d03005000,C0300,M0200,m02000200,l1500,M0200`;
 
-
 ## Extra: Adding your own filters
 
 In order to add your own filters, you must write a C function to proccess a signal and add the option in `filters/pedal.c` and then add it to the makefile in the filter listing and as a target.
 
 > [!WARNING]
 > **Custom filters are still a work in progress. It is not as flexible as it should be.**
+
+## Acknowledgements
+
+- This project utilizes [SoX (Sound eXchange)](https://sox.sourceforge.net) for high-performance live audio signal IO via command-line piping.

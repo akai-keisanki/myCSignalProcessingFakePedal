@@ -6,13 +6,20 @@
 
 void help_dialog(void)
 {
-  puts("\n## Command line format:");
-  puts("`fake_pedal FILTER_LIST_STRING OPTION` [^1]");
-  puts("\n## Options:");
-  puts("- `f INPUT OUTPUT`: apply to a WAV, reading from INPUT and writing to OUTPUT.");
-  puts("   e.g. `fake_pedal ... f input.wav output.wav`");
-  puts("\n## Notes:");
-  puts("1. Check filter options in the project's `README.md`.");
+  puts("\nCOMMAND LINE FORMAT\n-------------------");
+  puts("  fake_pedal FILTER_LIST_STRING [OPTION]");
+  puts("\nFILTER LIST SRING\n-----------------");
+  puts("  Each filter is given in the format: \"xVVVV\" or \"xVVVVWWWW\"");
+  puts("  - \"x\" is the character which represents the filter to be applied");
+  puts("  - \"VVVV\" and \"WWWW\" are 4-digit numeric values.");
+  puts("  E.g.:");
+  puts("  - \"D0300\": soft clip with threshold = 0300;");
+  puts("  - \"d05003000\": delay with delay = 0300 and mix = 3000;");
+  puts("  - \"D0300d05003000\": soft clip followed by delay.");
+  puts("\nOPTIONS\n-------");
+  puts("  - \"f INPUT OUTPUT\": apply to a WAV, reading from \"INPUT\" and writing to \"OUTPUT\".");
+  puts("  e.g. `fake_pedal ... f input.wav output.wav`");
+  puts("  - \"l\": apply to live audio, reading from default audio input device and playing to default audio output device.");
   puts("\n");
 }
 
@@ -110,7 +117,7 @@ int32_t main(int32_t argc, const char **argv)
 
   if (argc == 0)
   {
-    puts("String expected. Use `fake_pedal FILTER_LIST_STRING [OPTIONS...]` or `fake_pedal help`");
+    puts("String expected. Use `fake_pedal FILTER_LIST_STRING [OPTION]` or `fake_pedal help`");
     goto program_exit;
   }
 

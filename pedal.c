@@ -151,6 +151,8 @@ void pedal_in_files(FILE *output_wav, FILE *input_wav, const char *filter_list)
     sample = x * (SAMPLE_SCALING_FACTOR - 1);
 
     fwrite(&sample, sizeof(sample_size), 1, output_wav);
+
+    fflush(output_wav);
   }
 
   free_records(records);

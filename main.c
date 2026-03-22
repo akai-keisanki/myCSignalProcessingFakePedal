@@ -8,12 +8,12 @@ void help_dialog(void)
 {
   puts("\n## Command line format:");
   puts("`fake_pedal FILTER_LIST_STRING OPTION` [^1]");
-  puts("\n\n## Options:");
+  puts("\n## Options:");
   puts("- `f INPUT OUTPUT`: apply to a WAV, reading from INPUT and writing to OUTPUT.");
   puts("   e.g. `fake_pedal ... f input.wav output.wav`");
-  puts("\n\n## Notes:");
+  puts("\n## Notes:");
   puts("1. Check filter options in the project's `README.md`.");
-  puts("");
+  puts("\n");
 }
 
 void process_file(FILE *log, const char *filter_list, const char *input_file, const char *output_file)
@@ -24,10 +24,20 @@ void process_file(FILE *log, const char *filter_list, const char *input_file, co
 
   fprintf(log, "Opening %s...\n", input_file);
   input_wav = fopen(input_file, "rb");
+  if (!input_wav)
+  {
+    fprintf(log, "Failed opening %s.\n", input_file);
+    return;
+  }
   fprintf(log, "Finished opening %s.\n", input_file);
 
   fprintf(log, "Opening %s...", output_file);
   output_wav = fopen(output_file, "wb");
+  if (!output_wav)
+  {
+    fprintf(log, "Failed opening %s.\n", output_file);
+    return;
+  }
   fprintf(log, "Finished opening %s.\n", output_file);
 
 
@@ -56,6 +66,34 @@ void process_file(FILE *log, const char *filter_list, const char *input_file, co
   fputs("Finished! Output file complete.\n", log);
 }
 
+void process_live(FILE *log, const char *filter_list)
+{
+  FILE *input_wav;
+  FILE *output_wav;
+
+  input_wav = popen("sox -d -q -c 1 -r 44100 -b 16 -e signed-integer -t raw -", "r");
+  if (!input_wav)
+  {
+    fputs("Failed opening input pipe.", log);
+    return;
+  }
+
+  output_wav = popen("play -q -c 1 -r 44100 -b 16 -e signed-integer -t raw -", "w");
+  if (!output_wav)
+  {
+    fputs("Failed opening output pipe.", log);
+    return;
+  }
+
+  setvbuf(input_wav, NULL, _IONBF, 0);
+  setvbuf(output_wav, NULL, _IONBF, 0);
+
+  pedal_in_files(output_wav, input_wav, filter_list);
+
+  pclose(input_wav);
+  pclose(output_wav);
+}
+
 int32_t main(int32_t argc, const char **argv)
 {
   FILE *log = stderr;
@@ -79,7 +117,7 @@ int32_t main(int32_t argc, const char **argv)
   if (strcmp(*argv, "help") == 0)
   {
     help_dialog();
-    return 0;
+    goto program_exit;
   }
 
   filter_list = *argv++;
@@ -93,6 +131,9 @@ int32_t main(int32_t argc, const char **argv)
 	puts("Please provide files to read with option `f`.");
       else
 	process_file(log, filter_list, argv[1], argv[2]);
+      break;
+    case 'l':
+      process_live(log, filter_list);
       break;
     }
 

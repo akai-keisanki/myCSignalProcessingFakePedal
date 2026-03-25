@@ -12,6 +12,8 @@
 #include "filters/saturate.h"
 #include "filters/delay.h"
 #include "filters/drive.h"
+#include "filters/compress.h"
+#include "filters/auto_wah.h"
 #include "filters/harmonize.h"
 
 const sample_size SAMPLE_SCALING_FACTOR = 1 << (sizeof(sample_size)*8 - 1);
@@ -74,6 +76,8 @@ float apply_filters(struct records *records, float x, const char *filter_list)
     case 'S':
     case 'd':
     case 'D':
+    case 'c':
+    case 'W':
     case 'H':
       v = parse_4_digit(&filter_list);
       break;
@@ -83,6 +87,7 @@ float apply_filters(struct records *records, float x, const char *filter_list)
     {
     case 'm':
     case 'd':
+    case 'c':
     case 'H':
       w = parse_4_digit(&filter_list);
       break;
@@ -124,6 +129,14 @@ float apply_filters(struct records *records, float x, const char *filter_list)
 
     case 'D':
       x = drive(x, v);
+      break;
+
+    case 'c':
+      x = compress(x, v, w);
+      break;
+
+    case 'W':
+      x = auto_wah(x, v);
       break;
 
     case 'H':

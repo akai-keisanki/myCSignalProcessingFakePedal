@@ -68,15 +68,19 @@ Here is a simple list of the currently available filters:
 
 - `mid_scoop`: Type `m` followed by 2 4-digit values representing the per ten thousand of the low and high cut coefficients. [^1]
 
-- `pitch_shift` (BETA): Type `P` followed by a digit representing the signal (`0` for `+`, `1` or other for `-`) and 3 digits representing the per ten of the number of semitones to shift.
+- `pitch_shift` (BETA): Type `P` followed by a digit representing the signal (`0` for `+`, `1` or other for `-`) and 3 digits representing the per ten of the number of semitones to shift. [^1]
 
 - `saturate`: Type `S` followed by a 4-digit value representing the percent of the multiplier applied to the signal that is saturated with the hyperbolic tangent.
 
-- `delay`: Type `d` followed by 2 4-digit values representing the number of steps (that will be multiplied by 10) to be delayed and the per ten thousand of the multiplicator to be applied to the delayed signal to be summed.
+- `delay`: Type `d` followed by 2 4-digit values representing the number of steps (that will be multiplied by 10) to be delayed and the per ten thousand of the multiplicator to be applied to the delayed signal to be summed. [^1]
 
 - `distortion`: Type `D` followed by a 4-digit value representing the per ten thousand of the maximum signal (`1.0`) that should be the new maximum (and negative minimum), clipping higher values to it and blending with the signal.
 
-- `harmonize`: Type `H` followed by 2 4-digit values: the first is a digit representing the signal (`0` for `+`, `1` or other for `-`) and 3 digits representing the per ten of the number of semitones to shift to the added signal and the second is the per ten thousand of the multiplicator to be applied to the shifted signal to be summed.
+- `compress`: Type `c` followed by a 2 4-digit values representing the per ten thousand of the filter's attack (how much the new signal affects how loud it is considered) to calculate the gain and the per ten thousand of the mix. [^1]
+
+- `auto_wah`: Type `W` followed by a 4-digit value representing the per ten thousand of the filter's attack (how much the new signal affects how loud it is considered) to calculate the wah. [^1]
+
+- `harmonize`: Type `H` followed by 2 4-digit values: the first is a digit representing the signal (`0` for `+`, `1` or other for `-`) and 3 digits representing the per ten of the number of semitones to shift to the added signal and the second is the per ten thousand of the multiplicator to be applied to the shifted signal to be summed. [^1]
 
 > [!TIP]
 > Characters without use such as `-`, `,` or `.` can be used as separators.

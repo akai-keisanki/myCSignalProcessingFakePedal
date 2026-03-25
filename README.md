@@ -2,6 +2,13 @@
 
 This project implements signal processing features in C for WAV files, emulating a pedalboard.
 
+
+## Audio examples
+
+Example 1
+- [Input](examples/example_1_input.wav)
+- [Output (`c07003333,S0222,C0300,M0200,l1500`)](examples/example_1_output_c07003333,S0222,C0300,M0200,l1500.wav)
+
 ## Setup
 
 ### Requirements

@@ -56,3 +56,4 @@ dkms.conf
 
 # Audio files
 *.wav
+!examples/*.wav

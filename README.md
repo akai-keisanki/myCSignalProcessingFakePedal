@@ -8,6 +8,13 @@ This project implements signal processing features in C for WAV files, emulating
 Example 1
 - [Input](examples/example_1_input.wav)
 - [Output (`c07003333,S0222,C0300,M0200,l1500`)](examples/example_1_output_c07003333,S0222,C0300,M0200,l1500.wav)
+- [Output (`l2000,S0150,D0800,m02000700`)](examples/example_1_output_l2000,S0150,D0800,m02000700.wav)
+
+Example 2
+- [Input](examples/example_2_input.wav)
+- [Output (`l2000,S0150,D0800,m02000700`)](example/example_2_output_l2000,S0150,D0800,m02000700.wav)
+- [Output (`S0300,d03005000,C0300,M0200,m02000200,l1500,M0200`)](example/example_2_output_S0300,d03005000,C0300,M0200,m02000200,l1500,M0200.wav)
+- [Output (`c05003000,M0150,d04003333,l0200,m01000300`)](example/example_2_output_c05003000,M0150,d04003333,l0200,m01000300.wav)
 
 ## Setup
 

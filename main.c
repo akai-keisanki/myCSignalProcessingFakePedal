@@ -3,11 +3,15 @@
 #include <string.h>
 
 #include "pedal.h"
+#include "filters/util_filter_base.h"
+#include "filter_interpreter.h"
 
 void help_dialog(void)
 {
   puts("\nCOMMAND LINE FORMAT\n-------------------");
-  puts("  fake_pedal FILTER_LIST_STRING [OPTION]");
+  puts("  fake_pedal FILTER_LIST_OPTION FILTER_LIST_SOURCE [OPTION]");
+  puts("\nFILTER LIST OPTIONS\n-------------------");
+  puts("  - \"s STRING\": apply to a filter string.");
   puts("\nFILTER LIST SRING\n-----------------");
   puts("  Each filter is given in the format: \"xVVVV\" or \"xVVVVWWWW\"");
   puts("  - \"x\" is the character which represents the filter to be applied");
@@ -23,7 +27,7 @@ void help_dialog(void)
   puts("\n");
 }
 
-void process_file(FILE *log, const char *filter_list, const char *input_file, const char *output_file)
+void process_file(FILE *log, struct filter **filter_list, const char *input_file, const char *output_file)
 {
   FILE *input_wav;
   FILE *output_wav;
@@ -73,7 +77,7 @@ void process_file(FILE *log, const char *filter_list, const char *input_file, co
   fputs("Finished! Output file complete.\n", log);
 }
 
-void process_live(FILE *log, const char *filter_list)
+void process_live(FILE *log, struct filter **filter_list)
 {
   FILE *input_wav;
   FILE *output_wav;
@@ -113,11 +117,11 @@ int32_t main(int32_t argc, const char **argv)
     --argc;
   }
 
-  const char *filter_list;
+  struct filter **filter_list;
 
-  if (argc == 0)
+  if (argc < 1)
   {
-    puts("String expected. Use `fake_pedal FILTER_LIST_STRING [OPTION]` or `fake_pedal help`");
+    puts("Arg expected. Use \"fake_pedal FILTER_LIST_OPTION FILTER_LIST_SOURCE [OPTION]\" or \"fake_pedal help\"");
     goto program_exit;
   }
 
@@ -127,22 +131,38 @@ int32_t main(int32_t argc, const char **argv)
     goto program_exit;
   }
 
-  filter_list = *argv++;
-  --argc;
+  if (argc < 2)
+  {
+    puts("Filter list source expected. Use \"fake_pedal FILTER_LIST_OPTION FILTER_LIST_SOURCE\"");
+    goto program_exit;
+  }
+
+  switch (**argv++)
+  {
+  case 's':
+    filter_list = interpret_filter_string(*argv);
+    break;
+  }
+
+  ++argv;
+  argc -= 2;
 
   if (argc)
     switch (**argv)
     {
     case 'f':
-      if (argc <3)
+      if (argc < 3)
 	puts("Please provide files to read with option `f`.");
       else
 	process_file(log, filter_list, argv[1], argv[2]);
       break;
+
     case 'l':
       process_live(log, filter_list);
       break;
     }
+
+  free_filter_list(filter_list);
 
 program_exit:
   fputs("Exiting...\n", log);

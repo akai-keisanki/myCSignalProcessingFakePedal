@@ -11,10 +11,11 @@ struct filter
   char label[LABEL_SIZE];
   float (*apply)(struct filter *self, float x);
   params_t params;
+  params_t static_vals;
   struct record_data *rec;
 };
 
-struct filter *init_filter(char label[LABEL_SIZE], float (*apply)(struct filter *self, float x), params_t params, size_t rec_size)
+struct filter *init_filter(char label[LABEL_SIZE], float (*apply)(struct filter *self, float x), params_t params, params_t static_vals, size_t rec_size)
 {
   struct filter *self = malloc(sizeof(struct filter));
 
@@ -25,7 +26,10 @@ struct filter *init_filter(char label[LABEL_SIZE], float (*apply)(struct filter 
   self->apply = apply;
 
   for (size_t i = 0; i < sizeof(params_t) / sizeof(float); ++i)
+  {
     self->params[i] = params[i];
+    self->static_vals[i] = static_vals[i];
+  }
 
   self->rec = (rec_size) ? init_record_data(rec_size) : NULL;
 
@@ -44,7 +48,25 @@ float get_param(struct filter *self, size_t i)
   return self->params[i];
 }
 
-struct record_data *get_struct_data(struct filter *self)
+void set_param(struct filter *self, size_t i, float v)
+{
+  i = i % (sizeof(params_t) / sizeof(float));
+  self->params[i] = v;
+}
+
+float get_static_val(struct filter *self, size_t i)
+{
+  i = i % (sizeof(params_t) / sizeof(float));
+  return self->static_vals[i];
+}
+
+void set_static_val(struct filter *self, size_t i, float v)
+{
+  i = i % (sizeof(params_t) / sizeof(float));
+  self->static_vals[i] = v;
+}
+
+struct record_data *get_record_data(struct filter *self)
 {
   return self->rec;
 }

@@ -1,6 +1,8 @@
 #ifndef FILTERS_DRIVE_H
 #define FILTERS_DRIVE_H
 
-float drive(float x, float thr);
+#include "util_filter_base.h"
+
+struct filter *init_filter_drive(float thr);
 
 #endif

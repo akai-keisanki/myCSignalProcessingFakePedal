@@ -63,6 +63,7 @@ struct filter **interpret_filter_string(const char *filters_string)
     {
     case 'm':
     case 'd':
+    case 'D':
     case 'c':
     case 'H':
       w = parse_4_digit(&filters_string);

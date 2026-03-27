@@ -1,11 +1,13 @@
 #include "high_pass.h"
 
-float high_pass(float x, float cut)
+#include "low_pass.h"
+
+float high_pass(struct filter *self, float x)
 {
-  static float p_lp_y = 0.0f;
-  float lp_y = p_lp_y + (x - p_lp_y) * cut;
-  p_lp_y = lp_y;
-  float y = x - lp_y;
-  return y;
+  return x - low_pass(self, x);
 }
 
+struct filter *init_filter_high_pass(float cut);
+{
+  return init_filter("high_pass", high_pass, (params_t){cut}, (params_t){0.0f}, 0);
+}

@@ -1,8 +1,8 @@
 #ifndef FILTERS_DELAY_H
 #define FILTERS_DELAY_H
 
-#include "util_time_recorder.h"
+#include "util_filter_base.h"
 
-float delay(struct record_data *record, float x, float dly, float mix);
+struct filter *init_filter_delay(float dly, float mix);
 
 #endif

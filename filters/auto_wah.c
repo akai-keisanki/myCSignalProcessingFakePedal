@@ -2,10 +2,11 @@
 
 #include <math.h>
 
-float auto_wah(float x, float atk)
+float auto_wah(struct filter *self, float x)
 {
-  static float p_y = 0.0f;
-  static float env = 0.0f;
+  float atk = get_param(self, 0);
+  float p_y = get_static_val(self, 0);
+  float env = get_static_val(self, 1);
 
   atk /= 10.0f;
 
@@ -15,6 +16,13 @@ float auto_wah(float x, float atk)
   float y = p_y + (x - p_y) * powf(env, 1.5f);
   p_y = y;
 
+  set_static_val(self, 0, p_y);
+  set_static_val(self, 1, env);
+
   return y;
 }
 
+struct filter *init_filter_auto_wah(float atk)
+{
+  return init_filter("auto_wah", auto_wah, (params_t){atk}, (params_t){0.0f, 0.0f}, 0);
+}

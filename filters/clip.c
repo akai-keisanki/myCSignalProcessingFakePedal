@@ -11,5 +11,5 @@ float clip(struct filter *self, float x)
 
 struct filter *init_filter_clip(float thr)
 {
-  return init_filter("clip", clip, (params_t){thr}, 0);
+  return init_filter("clip", clip, (params_t){thr}, (params_t){}, 0);
 }

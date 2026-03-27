@@ -8,8 +8,6 @@ float auto_wah(struct filter *self, float x)
   float p_y = get_static_val(self, 0);
   float env = get_static_val(self, 1);
 
-  atk /= 10.0f;
-
   env += (fabs(x) - env) * atk;
   env = fminf(env, 1.0f);
 

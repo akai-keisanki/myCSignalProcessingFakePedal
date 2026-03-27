@@ -4,8 +4,6 @@ float multiply(struct filter *self, float x)
 {
   float mul = get_param(self, 0);
 
-  mul *= 100.0f;
-
   return x * mul;
 }
 

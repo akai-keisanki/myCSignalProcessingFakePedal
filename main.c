@@ -62,7 +62,7 @@ void process_file(FILE *log, struct filter **filter_list, const char *input_file
   
 
   fprintf(log, "Beginning filter application from %s to %s...\n", input_file, output_file);
-  pedal_in_files(output_wav, input_wav, filter_list);
+  pedal_in_files(output_wav, input_wav, filter_list, false);
   fprintf(log, "Finished filter application from %s to %s.\n", input_file, output_file);
 
 
@@ -99,7 +99,7 @@ void process_live(FILE *log, struct filter **filter_list)
   setvbuf(input_wav, NULL, _IONBF, 0);
   setvbuf(output_wav, NULL, _IONBF, 0);
 
-  pedal_in_files(output_wav, input_wav, filter_list);
+  pedal_in_files(output_wav, input_wav, filter_list, true);
 
   pclose(input_wav);
   pclose(output_wav);
@@ -143,8 +143,17 @@ int32_t main(int32_t argc, const char **argv)
     filter_list = interpret_filter_string(*argv);
     break;
 
+  case 'f':
+    filter_list = interpret_fpfml_file(log, *argv);
+    break;
+
   default:
     puts("Valid filter list option expected. Use \"fake_pedal FILTER_LIST_OPTION FILTER_LIST_SOURCE\"");
+    goto program_exit;
+  }
+
+  if (!filter_list)
+  {
     goto program_exit;
   }
 

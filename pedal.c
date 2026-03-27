@@ -13,7 +13,7 @@ float apply_filters(float x, struct filter **filter_list)
   return x;
 }
 
-void pedal_in_files(FILE *output_wav, FILE *input_wav, struct filter **filter_list)
+void pedal_in_files(FILE *output_wav, FILE *input_wav, struct filter **filter_list, const bool flush)
 {
   sample_size sample;
   float x;
@@ -26,6 +26,7 @@ void pedal_in_files(FILE *output_wav, FILE *input_wav, struct filter **filter_li
 
     fwrite(&sample, sizeof(sample_size), 1, output_wav);
 
-    fflush(output_wav);
+    if (flush)
+      fflush(output_wav);
   }
 }

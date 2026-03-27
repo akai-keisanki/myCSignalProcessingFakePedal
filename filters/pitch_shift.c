@@ -14,8 +14,7 @@ float pitch_shift(struct filter *self, float x)
   push_input_record(grain, x);
   ++pos;
   pos %= get_record_size(grain);
-  float steps = (roundf(fmodf(uni, 0.1f)*10000.0f) / 10.0f)*(uni - fmodf(uni, 0.1f) > 0.0001 ? -1.0f : 1.0f);
-  float dfreq = powf(2.0f, steps / 12.0f);
+  float dfreq = powf(2.0f, uni / 12.0f);
   read_pos += dfreq;
   read_pos = fmodf(read_pos, get_record_size(grain) * 3);
 

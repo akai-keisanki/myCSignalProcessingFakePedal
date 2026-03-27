@@ -8,8 +8,6 @@ float compress(struct filter *self, float x)
   float mix = get_param(self, 1);
   float env = get_static_val(self, 0);
 
-  atk /= 10.0f;
-
   env += (fabs(x) - env) * atk;
 
   float gain = powf(tanh(0.1f / (env + 0.05f)), 2.0f) * 4.0f;

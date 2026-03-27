@@ -1,0 +1,8 @@
+INPUT
+--> [Saturator multiplier: 3 ]
+--> [Clipper threshold: .03 ]
+--> [Multiplier multiplier: 1.5 ]
+--> [LowPass high_cut: .15 ]
+--> OUTPUT
+
+Simple fuzz simulator

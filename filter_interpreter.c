@@ -39,7 +39,7 @@ struct filter **interpret_filter_string(const char *filters_string)
   char curr_filter;
   float v, w;
 
-  while (curr_filter = *filters_string++ && i < MAX_FILTERS_SIZE - 2)
+  while ((curr_filter = *filters_string++) && i < MAX_FILTERS_SIZE - 3)
   {
     switch (curr_filter)
     {
@@ -134,4 +134,6 @@ void free_filter_list(struct filter **filters)
 {
   for (size_t i = 0; filters[i]; ++i)
     free_filter(filters[i]);
+
+  free(filters);
 }

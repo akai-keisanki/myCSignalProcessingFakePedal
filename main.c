@@ -142,6 +142,10 @@ int32_t main(int32_t argc, const char **argv)
   case 's':
     filter_list = interpret_filter_string(*argv);
     break;
+
+  default:
+    puts("Valid filter list option expected. Use \"fake_pedal FILTER_LIST_OPTION FILTER_LIST_SOURCE\"");
+    goto program_exit;
   }
 
   ++argv;

@@ -1,14 +1,12 @@
 #include "saturate.h"
 
+#include "multiply.h"
+
 #include <math.h>
 
 float saturate(struct filter *self, float x)
 {
-  float mul = get_param(self, 0);
-
-  mul *= 100.0f;
-
-  return tanhf(x*mul)*mul;
+  return multiply(self, tanhf(multiply(self, x)));
 }
 
 struct filter *init_filter_saturate(float mul)

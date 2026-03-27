@@ -1,5 +1,8 @@
 #include "filter_interpreter.h"
 
+#include <stdlib.h>
+#include <stdbool.h>
+
 #include "filters/multiply.h"
 #include "filters/clip.h"
 #include "filters/low_pass.h"
@@ -12,8 +15,6 @@
 #include "filters/compress.h"
 #include "filters/auto_wah.h"
 #include "filters/harmonize.h"
-
-#include <stdlib.h>
 
 #define MAX_FILTERS_SIZE (size_t)20
 
@@ -38,9 +39,12 @@ struct filter **interpret_filter_string(const char *filters_string)
   size_t i = 0;
   char curr_filter;
   float v, w;
+  bool pushed;
 
   while ((curr_filter = *filters_string++) && i < MAX_FILTERS_SIZE - 3)
   {
+    pushed = false;
+
     switch (curr_filter)
     {
     case 'M':
@@ -74,57 +78,69 @@ struct filter **interpret_filter_string(const char *filters_string)
     {
     case 'M':
       filters[i] = init_filter_multiply(v);
+      pushed = true;
       break;
 
     case 'C':
       filters[i] = init_filter_clip(v);
+      pushed = true;
       break;
 
     case 'l':
       filters[i] = init_filter_low_pass(v);
+      pushed = true;
       break;
 
     case 'h':
       filters[i] = init_filter_high_pass(v);
+      pushed = true;
       break;
 
     case 'm':
       filters[i] = init_filter_mid_scoop(v, w);
+      pushed = true;
       break;
 
     case 'P':
       filters[i] = init_filter_pitch_shift(v);
+      pushed = true;
       break;
 
     case 'S':
       filters[i] = init_filter_saturate(v);
+      pushed = true;
       break;
 
     case 'd':
       filters[i] = init_filter_delay(v, w);
+      pushed = true;
       break;
 
     case 'D':
       filters[i] = init_filter_drive(v, w);
+      pushed = true;
       break;
 
     case 'c':
       filters[i] = init_filter_compress(v, w);
+      pushed = true;
       break;
 
     case 'W':
       filters[i] = init_filter_auto_wah(v);
+      pushed = true;
       break;
 
     case 'H':
       filters[i] = init_filter_harmonize(v, w);
+      pushed = true;
       break;
     }
 
-    ++i;
+    if (pushed) ++i;
   }
 
-  filters[++i] = init_filter_clip(1.0f);
+  filters[i++] = init_filter_clip(1.0f);
   filters[i] = NULL;
 
   return filters;

@@ -4,7 +4,6 @@
 
 float drive(struct filter *self, float x)
 {
-  float thr = get_param(self, 0);
   float mix = get_param(self, 1);
 
   return clip(self, x) * mix + x * (1.0f - mix);

@@ -3,6 +3,8 @@
 
 #include "util_filter_base.h"
 
+float saturate(struct filter *self, float x);
+
 struct filter *init_filter_saturate(float mul);
 
 #endif

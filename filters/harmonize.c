@@ -2,6 +2,7 @@
 
 #include <math.h>
 
+#include "pitch_shift.h"
 #include "util_time_recorder.h"
 
 float harmonize(struct filter *self, float x)

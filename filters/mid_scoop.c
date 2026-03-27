@@ -27,7 +27,7 @@ float mid_scoop(struct filter *self, float x)
   return y;
 }
 
-struct filter *init_filter_mid_scoop(float low_cut, float high_cut);
+struct filter *init_filter_mid_scoop(float low_cut, float high_cut)
 {
   return init_filter("mid_scoop", mid_scoop, (params_t){low_cut, high_cut}, (params_t){0.0f, 0.0f}, 0);
 }

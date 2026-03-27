@@ -7,7 +7,7 @@ typedef float params_t[5];
 
 struct filter;
 
-struct filter *init_filter(char label[], float (*apply)(struct filter *self, float x), params_t params, size_t rec_size);
+struct filter *init_filter(char label[], float (*apply)(struct filter *self, float x), params_t params, params_t static_vals, size_t rec_size);
 void free_filter(struct filter *self);
 
 float get_param(struct filter *self, size_t i);

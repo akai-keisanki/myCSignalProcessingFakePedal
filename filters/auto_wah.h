@@ -3,6 +3,8 @@
 
 #include "util_filter_base.h"
 
-struct filter *auto_wah(float atk);
+float auto_wah(struct filter *self, float x);
+
+struct filter *init_filter_auto_wah(float atk);
 
 #endif

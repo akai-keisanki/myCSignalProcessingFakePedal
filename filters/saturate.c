@@ -11,7 +11,7 @@ float saturate(struct filter *self, float x)
   return tanhf(x*mul)*mul;
 }
 
-struct filter *init_filter_saturate(float mul);
+struct filter *init_filter_saturate(float mul)
 {
   return init_filter("saturate", saturate, (params_t){mul}, (params_t){}, 0);
 }

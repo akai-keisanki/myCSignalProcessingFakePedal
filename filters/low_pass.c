@@ -13,7 +13,7 @@ float low_pass(struct filter *self, float x)
   return y;
 }
 
-struct filter *init_filter_low_pass(float cut);
+struct filter *init_filter_low_pass(float cut)
 {
   return init_filter("low_pass", low_pass, (params_t){cut}, (params_t){0.0f}, 0);
 }

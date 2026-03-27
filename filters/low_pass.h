@@ -3,6 +3,8 @@
 
 #include "util_filter_base.h"
 
+float low_pass(struct filter *self, float x);
+
 struct filter *init_filter_low_pass(float cut);
 
 #endif

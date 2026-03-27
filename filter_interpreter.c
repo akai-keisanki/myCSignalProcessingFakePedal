@@ -93,7 +93,7 @@ struct filter **interpret_filter_string(const char *filters_string)
       break;
 
     case 'P':
-      filters[i] = init_filter_pitch_shift(5000, v);
+      filters[i] = init_filter_pitch_shift(v);
       break;
 
     case 'S':
@@ -101,11 +101,11 @@ struct filter **interpret_filter_string(const char *filters_string)
       break;
 
     case 'd':
-      filters[i] = init_filter_delay(100000, v, w);
+      filters[i] = init_filter_delay(v, w);
       break;
 
     case 'D':
-      filters[i] = init_filter_drive(v);
+      filters[i] = init_filter_drive(v, w);
       break;
 
     case 'c':
@@ -117,7 +117,7 @@ struct filter **interpret_filter_string(const char *filters_string)
       break;
 
     case 'H':
-      filters[i] = init_filter_harmonize(5000, v, w);
+      filters[i] = init_filter_harmonize(v, w);
       break;
     }
 

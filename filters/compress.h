@@ -3,6 +3,8 @@
 
 #include "util_filter_base.h"
 
+float compress(struct filter *self, float x);
+
 struct filter *init_filter_compress(float atk, float mix);
 
 #endif

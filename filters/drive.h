@@ -3,6 +3,8 @@
 
 #include "util_filter_base.h"
 
-struct filter *init_filter_drive(float thr);
+float drive(struct filter *self, float x);
+
+struct filter *init_filter_drive(float thr, float mix);
 
 #endif

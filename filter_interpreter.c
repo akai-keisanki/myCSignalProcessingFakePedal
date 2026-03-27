@@ -32,6 +32,11 @@ float parse_4_digit(const char **filters_string)
   return v;
 }
 
+struct filter **interpret_filter_file(const char *filter_file_name)
+{
+  // TODO
+}
+
 struct filter **interpret_filter_string(const char *filters_string)
 {
   struct filter **filters = malloc(sizeof(struct filter *) * MAX_FILTERS_SIZE);

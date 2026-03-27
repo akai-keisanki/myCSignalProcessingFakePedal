@@ -8,13 +8,21 @@ This project implements signal processing features in C for WAV files, emulating
 Example 1
 - [Input](examples/example_1_input.wav)
 - [Output (`c07003333,S0222,C0300,M0200,l1500`)](examples/example_1_output_c07003333,S0222,C0300,M0200,l1500.wav)
-- [Output (`l2000,S0150,D0800,m02000700`)](examples/example_1_output_l2000,S0150,D0800,m02000700.wav)
+- [Output (`l2000,S0150,D08005000,m02000700`)](examples/example_1_output_l2000,S0150,D08005000,m02000700.wav)
 
 Example 2
 - [Input](examples/example_2_input.wav)
-- [Output (`l2000,S0150,D0800,m02000700`)](examples/example_2_output_l2000,S0150,D0800,m02000700.wav)
+- [Output (`l2000,S0150,D08005000,m02000700`)](examples/example_2_output_l2000,S0150,D08005000,m02000700.wav)
 - [Output (`S0300,d03005000,C0300,M0200,m02000200,l1500,M0200`)](examples/example_2_output_S0300,d03005000,C0300,M0200,m02000200,l1500,M0200.wav)
 - [Output (`c05003000,M0150,d04003333,l0200,m01000300`)](examples/example_2_output_c05003000,M0150,d04003333,l0200,m01000300.wav)
+
+Example 3
+- [Input](examples/example_3_input.wav)
+- [Output (`c01003000,S0300,l0700,h0700,D04003000,W0500`)](examples/example_3_output_c01003000,S0300,l0700,h0700,D04003000,W0500.wav)
+
+Example 4
+- [Input](examples/example_4_input.wav)
+- [Output (`c01007000,l1800,d20004000,D04002000`)](examples/example_4_output_c01007000,l1800,d20004000,D04002000.wav)
 
 ## Setup
 
@@ -29,8 +37,8 @@ Example 2
 To run this software, you must compile it from the source code.
 
 You can clone it from GitHub:
-```
-sh git clone https://github.com/akai-keisanki/myCSignalProcessingFakePedal.git
+```sh
+git clone https://github.com/akai-keisanki/myCSignalProcessingFakePedal.git
 ```
 
 And `cd` into the directory:
@@ -45,21 +53,26 @@ make fake_pedal
 
 ## Usage
 
-### Using the right files
-
-Due to technical difficulties, this program only processes 16b WAV files with 44B-header (44100Hz recommended). The file should be named `input.wav` and be in the working directory.
-
-You can use Make to generate an `input.wav` from a `pre_input.wav` file in your input directory, formating it with `ffmpeg` to the required conventions:
-```sh
-make input.wav
-```
-
-An `output.wav` shall be generated after `fake_pedal`'s running is finished with exit code `0`.
+> [!IMPORTANT]
+> Due to technical difficulties, this program only processes 16b WAV files with 44B-header (44100Hz recommended). The file should be named `input.wav` and be in the working directory.
+> 
+> You can use Make to generate an `input.wav` from a `pre_input.wav` file in your input directory, formating it with `ffmpeg` to the required conventions: 
+> ```sh
+> make input.wav
+> ```
+> 
+> An `output.wav` shall be generated after `fake_pedal`'s running is finished with exit code `0`.
 
 ### Command-line usage
 
-`fake_pedal` requires a filter list string as its first argument and a following option to work.
-The options are:
+`fake_pedal` requires a filter input option as its first argument and a following IO option to work with.
+
+The filter input options are:
+
+- `s`: read from a following filter string, which is explained in the next usage section.
+- `f`: read from a following file (name) with the FPFML (Fake Pedal Filter Markdown Language) format.
+
+The IO options are:
 
 - `f`: process files. Must be followed by 2 arguments: the input and output proper WAV files.
 - `l`: process and play live audio with SoX.
@@ -68,7 +81,7 @@ You can get a brief description of the command line structure with `fake_pedal h
 
 ### Using filters
 
-Each filter in the filter list string is represented by its character immediately followed by 1-2 4-digit numeric values. They are listed in order of application.
+For filter list string, each filter is represented by its character immediately followed by 1-2 4-digit numeric values. They are listed in order of application.
 
 Here is a simple list of the currently available filters:
 
@@ -107,11 +120,11 @@ Example filter list strings that you can try:
 
 - Fuzz: `S0300,C0300,M0150,l1500`;
 - Warm tone: `M0150,d04003333,l0200,m01000300`;
-- Nasal drive: `S0300,l0700,h0700,D0500`;
+- Nasal drive: `S0300,l0700,h0700,D05005000`;
 - Lo-fi tone: `h0600,l0900,S0150,C1000`;
-- Warm drive: `l2000,S0150,D0800,m02000700`;
+- Warm drive: `l2000,S0150,D08005000,m02000700`;
 - Bigger impression: `H10125000,S0150,m02000200,d03001000`;
-- Hard drive: `S0300,d03005000,C0300,M0200,m02000200,l1500,M0200`;
+- Hard drive: `d00208000,c05003000,S0300,l2000,C0300,M0200,l1500`;
 
 ## Extra: Adding your own filters
 

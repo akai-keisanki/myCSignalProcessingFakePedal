@@ -48,7 +48,7 @@ make fake_pedal
 The filter input options are:
 
 - `s`: read from a following filter string, which is explained in the next usage section.
-- `f`: read from a following file (name) with the FPFML[^1] format.
+- `f`: read from a following file (name) with the FPFDSL[^1] format.
 
 The IO options are:
 
@@ -102,16 +102,16 @@ Here are some example filter list strings that you can try:
 - Bigger impression: `H10125000,S0150,m02000200,d03001000`;
 - Hard drive: `d00208000,c05003000,S0300,l2000,C0300,M0200,l1500`;
 
-#### FPFML[^1]
+#### FPFDSL[^1]
 
-The FPFML is a straightfoward and visual format where every name, value or delimiter -- some element -- is represented by a string separated by spaces from the other elements.
+The FPFDSL is a straightfoward and visual format where every name, value or delimiter -- some element -- is represented by a string separated by spaces from the other elements.
 
 It's details will not be covered by this description, but some examples are available in this repository:
-- [Fuzz](fpfml_examples/fuzz.fpfml)
-- [Warm tone](fpfml_examples/warm_tone.fpfml)
-- [Hard drive](fpfml_examples/hard_drive.fpfml)
+- [Fuzz](fpfdsl_examples/fuzz.fpfdsl)
+- [Warm tone](fpfdsl_examples/warm_tone.fpfdsl)
+- [Hard drive](fpfdsl_examples/hard_drive.fpfdsl)
 
-[^1]: FPFML stands for Fake Pedal Filter Markdown Language.
+[^1]: FPFDSL stands for Fake Pedal Filter Domain-Specific Language.
 
 ## Audio Examples
 

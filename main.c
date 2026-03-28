@@ -144,7 +144,7 @@ int32_t main(int32_t argc, const char **argv)
     break;
 
   case 'f':
-    filter_list = interpret_fpfml_file(log, *argv);
+    filter_list = interpret_fpfdsl_file(log, *argv);
     break;
 
   default:

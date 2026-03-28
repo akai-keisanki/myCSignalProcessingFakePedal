@@ -34,7 +34,7 @@ float parse_4_digit(const char **filters_string)
   return v;
 }
 
-bool fpfml_read_param(FILE *log, FILE *file, const char *exp, float *target, const char *param_name)
+bool fpfdsl_read_param(FILE *log, FILE *file, const char *exp, float *target, const char *param_name)
 {
   char param_format[0x20] = "";
   strcat(param_format, param_name);
@@ -50,14 +50,14 @@ bool fpfml_read_param(FILE *log, FILE *file, const char *exp, float *target, con
   return false;
 }
 
-void fpfml_param_end(FILE* log, const char *exp)
+void fpfdsl_param_end(FILE* log, const char *exp)
 {
   if (!strcmp(exp, "]"));
   else
     fprintf(log, "Unexpected string \"%s\"\n", exp);
 }
 
-struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
+struct filter *interpret_fpfdsl_filter(FILE *log, FILE *file)
 {
   char exp[0xFF];
   params_t v = {};
@@ -76,12 +76,12 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "multiplier"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "mul"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "coefficient"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "multiplier"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "mul"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "coefficient"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -92,11 +92,11 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "threshold"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "thr"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "threshold"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "thr"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -107,11 +107,11 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "cut"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "high_cut"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "cut"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "high_cut"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -122,11 +122,11 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "cut"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "low_cut"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "cut"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "low_cut"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -137,13 +137,13 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "low_cut"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "lcut"));
-      else if (fpfml_read_param(log, file, exp, v + 1, "high_cut"));
-      else if (fpfml_read_param(log, file, exp, v + 1, "hcut"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "low_cut"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "lcut"));
+      else if (fpfdsl_read_param(log, file, exp, v + 1, "high_cut"));
+      else if (fpfdsl_read_param(log, file, exp, v + 1, "hcut"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -154,11 +154,11 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "unities"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "uni"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "unities"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "uni"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -169,11 +169,11 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "multiplier"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "mul"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "multiplier"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "mul"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -184,13 +184,13 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "delay"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "dly"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "steps"));
-      else if (fpfml_read_param(log, file, exp, v + 1, "mix"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "delay"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "dly"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "steps"));
+      else if (fpfdsl_read_param(log, file, exp, v + 1, "mix"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -201,12 +201,12 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "threshold"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "thr"));
-      else if (fpfml_read_param(log, file, exp, v + 1, "mix"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "threshold"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "thr"));
+      else if (fpfdsl_read_param(log, file, exp, v + 1, "mix"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -217,12 +217,12 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "attack"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "atk"));
-      else if (fpfml_read_param(log, file, exp, v + 1, "mix"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "attack"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "atk"));
+      else if (fpfdsl_read_param(log, file, exp, v + 1, "mix"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -233,11 +233,11 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "attack"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "atk"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "attack"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "atk"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -248,12 +248,12 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   {
     while (fscanf(file, "%s", exp) > 0)
     {
-      if (fpfml_read_param(log, file, exp, v + 0, "unities"));
-      else if (fpfml_read_param(log, file, exp, v + 0, "uni"));
-      else if (fpfml_read_param(log, file, exp, v + 1, "mix"));
+      if (fpfdsl_read_param(log, file, exp, v + 0, "unities"));
+      else if (fpfdsl_read_param(log, file, exp, v + 0, "uni"));
+      else if (fpfdsl_read_param(log, file, exp, v + 1, "mix"));
       else
       {
-	fpfml_param_end(log, exp);
+	fpfdsl_param_end(log, exp);
 	break;
       }
     }
@@ -265,7 +265,7 @@ struct filter *interpret_fpfml_filter(FILE *log, FILE *file)
   return NULL;
 }
 
-struct filter **interpret_fpfml_file(FILE *log, const char *filter_file_name)
+struct filter **interpret_fpfdsl_file(FILE *log, const char *filter_file_name)
 {
   struct filter **filters = malloc(sizeof(struct filter *) * MAX_FILTERS_SIZE);
 
@@ -283,7 +283,7 @@ struct filter **interpret_fpfml_file(FILE *log, const char *filter_file_name)
   {
     if (!strcmp(exp, "-->"))
     {
-      if (!(filters[i++] = interpret_fpfml_filter(log, file)))
+      if (!(filters[i++] = interpret_fpfdsl_filter(log, file)))
       {
 	filters[i - 1] = init_filter_clip(1.0f);
 	break;

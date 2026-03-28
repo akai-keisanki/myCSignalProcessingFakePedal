@@ -1,8 +1,10 @@
 #ifndef FILTERS_PITCH_SHIFT_H
 #define FILTERS_PITCH_SHIFT_H
 
-#include "util_time_recorder.h"
+#include "util_filter_base.h"
 
-float pitch_shift(struct record_data *grain, float x, float uni);
+float pitch_shift(struct filter *self, float x);
+
+struct filter *init_filter_pitch_shift(float uni);
 
 #endif

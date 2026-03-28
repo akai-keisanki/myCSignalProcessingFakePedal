@@ -1,7 +1,7 @@
 FILTERS_SRCS = $(wildcard filters/*.c)
 FILTERS_OBJS = $(FILTERS_SRCS:.c=.o)
 
-ROOT_SRCS = main.c pedal.c
+ROOT_SRCS = main.c pedal.c filter_interpreter.c
 ROOT_OBJS = $(ROOT_SRCS:.c=.o)
 
 TARGET = fake_pedal

@@ -1,6 +1,10 @@
 #ifndef FILTERS_COMPRESS_H
 #define FILTERS_COMPRESS_H
 
-float compress(float x, float atk, float mix);
+#include "util_filter_base.h"
+
+float compress(struct filter *self, float x);
+
+struct filter *init_filter_compress(float atk, float mix);
 
 #endif

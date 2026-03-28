@@ -2,16 +2,18 @@
 
 #include <math.h>
 
-float harmonize(struct record_data *grain, float x, float uni, float mix)
+#include "pitch_shift.h"
+#include "util_time_recorder.h"
+
+float harmonize(struct filter *self, float x)
 {
-  static float read_pos = 0.0f;
-  static size_t pos = -1;
-  push_input_record(grain, x);
-  ++pos;
-  pos %= get_record_size(grain);
-  float steps = (roundf(fmodf(uni, 0.1f)*10000.0f) / 10.0f)*(uni - fmodf(uni, 0.1f) > 0.0001 ? -1.0f : 1.0f);
-  float dfreq = powf(2.0f, steps / 12.0f);
-  read_pos += dfreq;
-  read_pos = fmodf(read_pos, get_record_size(grain) * 3);
-  return x + get_past_input(grain, pos - floorf(read_pos)) * mix;
+  float mix = get_param(self, 1);
+
+  return x + pitch_shift(self, x) * mix;
 }
+
+struct filter *init_filter_harmonize(float uni, float mix)
+{
+  return init_filter("harmonize", harmonize, (params_t){uni, mix}, (params_t){0.0f, 4999.0f}, 5000);
+}
+

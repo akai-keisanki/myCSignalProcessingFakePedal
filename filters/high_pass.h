@@ -1,6 +1,10 @@
 #ifndef FILTERS_HIGH_PASS_H
 #define FILTERS_HIGH_PASS_H
 
-float high_pass(float x, float cut);
+#include "util_filter_base.h"
+
+float high_pass(struct filter *self, float x);
+
+struct filter *init_filter_high_pass(float cut);
 
 #endif

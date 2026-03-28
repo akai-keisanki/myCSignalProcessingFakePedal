@@ -1,6 +1,10 @@
 #ifndef FILTERS_MID_SCOOP_H
 #define FILTERS_MID_SCOOP_H
 
-float mid_scoop(float x, float low_cut, float high_cut);
+#include "util_filter_base.h"
+
+float mid_scoop(struct filter *self, float x);
+
+struct filter *init_filter_mid_scoop(float low_cut, float high_cut);
 
 #endif

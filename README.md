@@ -2,6 +2,11 @@
 
 This project implements signal processing features in C for WAV files, emulating a pedalboard.
 
+> [!WARNING]
+> This project is recently changing a lot. This description is being updated. It is recommended to use only the main branch.
+>
+> If you want to use this version, try running `fake_pedal help`. This README is probably not up-to-date.
+
 ## Setup
 
 ### Requirements

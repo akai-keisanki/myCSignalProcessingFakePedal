@@ -11,17 +11,20 @@ float compress(struct filter *self, float x)
   float env = get_static_val(self, 0);
 
   env += (fabs(x) - env) * atk;
+  if (env < 1e-6f) env = 1e-6f;
 
   float env_db = 20.0f * log10f(env);
-  float gain_db;
+  float gain_db = 0.0f;
   float gain;
 
-  if (rat < 0.0f)
+  if (rat > 0.0f)
     if (env_db > thr_db)
       gain_db = (thr_db + (env_db - thr_db) / rat) - env_db;
-  else if (rat > 0.0f)
+  else if (rat < 0.0f)
     if (env_db < thr_db)
       gain_db = (thr_db - (thr_db - env_db) / -rat) - env_db;
+
+  gain = powf(10.0f, gain_db / 20.0f);
 
   set_static_val(self, 0, env);
 

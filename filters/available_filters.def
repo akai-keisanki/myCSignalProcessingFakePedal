@@ -56,7 +56,7 @@ ADD_FILTER(
 
 ADD_FILTER(
   drive,
-  ADD_NAME(Drive) ADD_NAME(Driver),
+  ADD_NAME(Drive) ADD_NAME(Driver) ADD_NAME(OverDrive) ADD_NAME(OverDriver),
   ADD_PARAM(0, thr) ADD_PARAM(0, threshold) ADD_PARAM(1, mix),
   ADD_VIS(VI(0),
   VI(1))

@@ -52,17 +52,17 @@ bool fpfdsl_read_param(FILE *log, FILE *file, const char *exp, float *target, co
 	return NULL;
       }
 
-      if (!fscanf(file, "%f", target) <= 0)
-	fprintf(log, "Unexpected string (expected %s float)\n", param_name);
+      if (fscanf(file, "%f", target) <= 0)
+	fprintf(log, "Unexpected string (expected %s float).\n", param_name);
 
       if (!strcmp(exp2, "dB"))
 	*target = powf(10.0f, *target / 20.0f);
-      if (!strcmp(exp2, "\%"))
+      else if (!strcmp(exp2, "%"))
 	*target /= 100.0f;
-      if (!strcmp(exp2, "\%\%"))
+      else if (!strcmp(exp2, "%%"))
 	*target /= 10000.0f;
       else
-	fprintf(log, "Unexpected string \"%s\" (expected %s float or \"dB\")\n", exp2, param_name);
+	fprintf(log, "Unexpected string \"%s\" (expected %s float or \"%%\", \"%%%%\" or \"dB\").\n", exp2, param_name);
     }
 
     return true;
@@ -74,7 +74,7 @@ void fpfdsl_param_end(FILE* log, const char *exp)
 {
   if (!strcmp(exp, "]"));
   else
-    fprintf(log, "Unexpected string \"%s\"\n", exp);
+    fprintf(log, "Unexpected string \"%s\". Expected \"]\"\n", exp);
 }
 
 struct filter *interpret_fpfdsl_filter(FILE *log, FILE *file)
@@ -103,7 +103,7 @@ struct filter *interpret_fpfdsl_filter(FILE *log, FILE *file)
   #undef ID
   #undef ADD_PARAM
 
-  fprintf(log, "Unexpected string \"%s\"\n", exp);
+  fprintf(log, "Unexpected string \"%s\". Expected filter.\n", exp);
   return NULL;
 }
 
@@ -133,7 +133,7 @@ struct filter **interpret_fpfdsl_file(FILE *log, const char *filter_file_name)
     }
     else if (!strcmp(exp, "INPUT"));
     else
-      fprintf(log, "Unexpected string \"%s\"\n", exp);
+      fprintf(log, "Unexpected string \"%s\". Expected \"-->\" or \"INPUT\".\n", exp);
   }
 
   filters[i] = NULL;

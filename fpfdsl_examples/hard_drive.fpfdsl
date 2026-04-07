@@ -1,11 +1,11 @@
 INPUT
 --> [Delayer delay: 20 mix: .8 ]
---> [Compressor attack: .05 mix: .3 ]
---> [Saturator multiplier: 3 ]
---> [LowPass high_cut: .2 ]
---> [Clipper threshold: .03 ]
---> [Multiplier multiplier: 2 ]
---> [LowPass high_cut: .15 ]
+--> [Saturator gain: db 9.5 ]
+--> [Compressor ratio: 2 threshold: dB -5 attack: .05 mix: .3 ]
+--> [LowPass high_cut: % 20 ]
+--> [OverDriver threshold: % 3 mix: % 100 ]
+--> [Multiplier gain: dB 6 ]
+--> [LowPass high_cut: % 15 ]
 --> OUTPUT
 
 Simple distortion simulator

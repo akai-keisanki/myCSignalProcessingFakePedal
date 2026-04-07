@@ -14,20 +14,6 @@
 #define MAX_FILTERS_SIZE (size_t)0x40
 #define FPFDSL_MAX_STR_SIZE (size_t)0xFF
 
-float parse_4_digit(const char **filters_string)
-{
-  float v = 0.0f;
-  v += (**filters_string - '0') * 0.1f;
-  ++*filters_string;
-  v += (**filters_string - '0') * 0.01f;
-  ++*filters_string;
-  v += (**filters_string - '0') * 0.001f;
-  ++*filters_string;
-  v += (**filters_string - '0') * 0.0001f;
-  ++*filters_string;
-  return v;
-}
-
 bool fpfdsl_str_safe_read(FILE *file, char *str)
 {
   signed int c;
@@ -51,14 +37,33 @@ bool fpfdsl_str_safe_read(FILE *file, char *str)
 
 bool fpfdsl_read_param(FILE *log, FILE *file, const char *exp, float *target, const char *param_name)
 {
+  char exp2[FPFDSL_MAX_STR_SIZE];
   char param_format[FPFDSL_MAX_STR_SIZE] = "";
   strcat(param_format, param_name);
   strcat(param_format, ":");
 
   if (!strcmp(exp, param_format))
   {
-    if (!fscanf(file, "%f", target))
-      fprintf(log, "Unexpected string \"%s\" (expected %s float)\n", exp, param_name);
+    if (fscanf(file, "%f", target) <= 0)
+    {
+      if (!fpfdsl_str_safe_read(file, exp2))
+      {
+	fputs("File ended earlier than expected!", log);
+	return NULL;
+      }
+
+      if (!fscanf(file, "%f", target) <= 0)
+	fprintf(log, "Unexpected string (expected %s float)\n", param_name);
+
+      if (!strcmp(exp2, "dB"))
+	*target = powf(10.0f, *target / 20.0f);
+      if (!strcmp(exp2, "\%"))
+	*target /= 100.0f;
+      if (!strcmp(exp2, "\%\%"))
+	*target /= 10000.0f;
+      else
+	fprintf(log, "Unexpected string \"%s\" (expected %s float or \"dB\")\n", exp2, param_name);
+    }
 
     return true;
   }
@@ -88,8 +93,8 @@ struct filter *interpret_fpfdsl_filter(FILE *log, FILE *file)
     return NULL;
   }
   #define ADD_PARAM(idx, name) else if (fpfdsl_read_param(log, file, exp, v + (size_t)(idx), STR(name)));
-  #define ID(idx) v[idx]
-  #define ADD_IDS(...) __VA_ARGS__
+  #define VI(idx) v[idx]
+  #define ADD_VIS(...) __VA_ARGS__
   #define ADD_NAME(name) || !strcmp(exp, STR([name))
   #define ADD_FILTER(name, names, params, ids) else if (false names) { while (fpfdsl_str_safe_read(file, exp)) { if (false); params else { fpfdsl_param_end(log, exp); break; } } return init_filter_##name(ids); }
   #include "filters/available_filters.def"

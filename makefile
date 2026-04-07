@@ -14,17 +14,14 @@ $(TARGET): $(ROOT_OBJS) $(FILTERS_OBJS)
 	$(CC) -o $(TARGET) $(ROOT_OBJS) $(FILTERS_OBJS) $(LINKER_FLAGS)
 	chmod +x $(TARGET)
 
-main.o: main.c
-	$(CC) -c -o main.o main.c
-
-pedal.o: pedal.c
-	$(CC) -c -o pedal.o pedal.c
+%.o: %.c
+	$(CC) -c -o $@ $^
 
 filters/%.o: filters/%.c
 	$(CC) -c -o $@ $^
 
 clean:
-	rm fake_pedal main.o pedal.o filters/*.o
+	rm $(TARGET) $(ROOT_OBJS) $(FILTERS_OBJS)
 
 input.wav: pre_input.wav
 	ffmpeg -i pre_input.wav -acodec pcm_s16le -ar 44100 -ac 2 -map_metadata -1 -fflags +bitexact input.wav

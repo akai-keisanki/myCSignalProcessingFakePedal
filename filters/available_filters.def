@@ -7,7 +7,7 @@ ADD_FILTER(
 
 ADD_FILTER(
   clip,
-  ADD_NAME(Clip) ADD_NAME(Clipper),
+  ADD_NAME(Clip) ADD_NAME(Clipper) ADD_NAME(HardClip) ADD_NAME(HardClipper),
   ADD_PARAM(0, thr) ADD_PARAM(0, threshold),
   ADD_VIS(VI(0))
 )

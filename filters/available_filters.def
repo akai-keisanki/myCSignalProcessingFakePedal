@@ -34,6 +34,13 @@ ADD_FILTER(
 )
 
 ADD_FILTER(
+  bit_crush,
+  ADD_NAME(BitCrush) ADD_NAME(BitCrusher) ADD_NAME(LoFi),
+  ADD_PARAM(0, res) ADD_PARAM(0, resolution) ADD_PARAM(0, crush),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
   pitch_shift,
   ADD_NAME(PitchShift) ADD_NAME(PitchShifter),
   ADD_PARAM(0, uni) ADD_PARAM(0, unities) ADD_PARAM(0, semitones),

@@ -10,10 +10,13 @@ INPUT
     ]
 --> [OverDriver
       threshold: dB -40
-      mix: % 50
+      mix: % 20
     ]
 --> [Multiplier
       gain: dB 5
+    ]
+--> [BitCrusher
+      resolution: 7.2
     ]
 --> [Compressor
       ratio: 2

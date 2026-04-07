@@ -3,6 +3,7 @@
 #include "low_pass.h"
 #include "high_pass.h"
 #include "mid_scoop.h"
+#include "bit_crush.h"
 #include "pitch_shift.h"
 #include "saturate.h"
 #include "delay.h"

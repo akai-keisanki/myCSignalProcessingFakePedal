@@ -144,10 +144,11 @@ You can check some example audio files and the resulting outputs from the usage 
 
 ## Extra: Adding your own filters
 
-In order to add your own filters, you must write a `.c` and `.h` (e.g. `my_filter.c` and `my_filter.h`) in the [`filters/`](filters/) directory
+In order to add your own filters, you must write `.c` and `.h` files (e.g. `my_filter.c` and `my_filter.h`) in the [`filters/`](filters/) directory and update the [`filters/filter_includes.def`](filters/filter_includes.def) and [`filters/available_filters.def`](filters/available_filters.def) files with the filter's information.
 
-> [!WARNING]
-> **Custom filters are still a work in progress. It is not as flexible as it should be.**
+Your filter's `.h` file must include `util_filter_base.h` and define a `struct filter *init_filter_my_filter(...)` (where `my_filter` must be named the same your files) function that takes the filter's parameters as arguments.
+
+The `.def` files have an own structure that must be followed. Check the other listed filters there for more detail.
 
 ## Acknowledgements
 

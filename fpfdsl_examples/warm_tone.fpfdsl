@@ -1,8 +1,24 @@
 INPUT
---> [Multiplier multiplier: 1.5 ]
---> [Delayer delay: 400 mix: .3333 ]
---> [LowPass high_cut: .02 ]
---> [MidScooper low_cut: 0.01 high_cut: 0.03 ]
+--> [Multiplier
+      gain: dB 5
+    ]
+--> [Delayer
+      delay: 400
+      mix: %% 3333
+    ]
+--> [LowPass
+      high_cut: % 2
+    ]
+--> [MidScooper
+      low_cut: % 1
+      high_cut: % 3
+    ]
+--> [Compressor
+      ratio: 2
+      threshold: dB -10
+      attack: % 5
+      mix: % 70
+    ]
 --> OUTPUT
 
-Simple warm tone simulator
+Simple warm tone simulator.

@@ -1,0 +1,29 @@
+INPUT
+--> [HighPass
+      low_cut: % 6
+    ]
+--> [LowPass
+      high_cut: % 9
+    ]
+--> [Saturator
+      gain: dB 3.5
+    ]
+--> [OverDriver
+      threshold: dB -40
+      mix: % 20
+    ]
+--> [Multiplier
+      gain: dB 5
+    ]
+--> [BitCrusher
+      resolution: 7.2
+    ]
+--> [Compressor
+      ratio: 2
+      threshold: dB -10
+      attack: % 5
+      mix: % 70
+    ]
+--> OUTPUT
+
+Lo-fi tone simulator.

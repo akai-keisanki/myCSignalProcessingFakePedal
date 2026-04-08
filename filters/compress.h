@@ -5,6 +5,6 @@
 
 float compress(struct filter *self, float x);
 
-struct filter *init_filter_compress(float atk, float mix);
+struct filter *init_filter_compress(float rat, float thr, float atk, float mix);
 
 #endif

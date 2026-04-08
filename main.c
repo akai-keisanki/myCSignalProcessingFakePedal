@@ -11,7 +11,7 @@ void help_dialog(void)
   puts("\nCOMMAND LINE FORMAT\n-------------------");
   puts("  fake_pedal FILTER_LIST_OPTION FILTER_LIST_SOURCE [OPTION]");
   puts("\nFILTER LIST OPTIONS\n-------------------");
-  puts("  - \"s STRING\": apply to a filter string.");
+  puts("  - \"f FILE\": apply from a FPFDSL file.");
   puts("\nFILTER LIST SRING\n-----------------");
   puts("  Each filter is given in the format: \"xVVVV\" or \"xVVVVWWWW\"");
   puts("  - \"x\" is the character which represents the filter to be applied");
@@ -139,10 +139,6 @@ int32_t main(int32_t argc, const char **argv)
 
   switch (**argv++)
   {
-  case 's':
-    filter_list = interpret_filter_string(*argv);
-    break;
-
   case 'f':
     filter_list = interpret_fpfdsl_file(log, *argv);
     break;

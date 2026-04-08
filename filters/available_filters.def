@@ -1,0 +1,92 @@
+ADD_FILTER(
+  multiply,
+  ADD_NAME(Multiply) ADD_NAME(Multiplier) ADD_NAME(Gain),
+  ADD_PARAM(0, mul) ADD_PARAM(0, multiplier) ADD_PARAM(0, coefficient) ADD_PARAM(0, gain),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
+  clip,
+  ADD_NAME(Clip) ADD_NAME(Clipper) ADD_NAME(HardClip) ADD_NAME(HardClipper),
+  ADD_PARAM(0, thr) ADD_PARAM(0, threshold),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
+  low_pass,
+  ADD_NAME(LowPass) ADD_NAME(HighCut),
+  ADD_PARAM(0, cut) ADD_PARAM(0, hcut) ADD_PARAM(0, high_cut),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
+  high_pass,
+  ADD_NAME(HighPass) ADD_NAME(LowCut),
+  ADD_PARAM(0, cut) ADD_PARAM(0, lcut) ADD_PARAM(0, low_cut),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
+  mid_scoop,
+  ADD_NAME(MidScoop) ADD_NAME(MidScooper),
+  ADD_PARAM(0, lcut) ADD_PARAM(0, low_cut) ADD_PARAM(1, hcut) ADD_PARAM(1, high_cut),
+  ADD_VIS(VI(0), VI(1))
+)
+
+ADD_FILTER(
+  bit_crush,
+  ADD_NAME(BitCrush) ADD_NAME(BitCrusher) ADD_NAME(LoFi),
+  ADD_PARAM(0, res) ADD_PARAM(0, resolution) ADD_PARAM(0, crush),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
+  pitch_shift,
+  ADD_NAME(PitchShift) ADD_NAME(PitchShifter),
+  ADD_PARAM(0, uni) ADD_PARAM(0, unities) ADD_PARAM(0, semitones),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
+  saturate,
+  ADD_NAME(Saturate) ADD_NAME(Saturator),
+  ADD_PARAM(0, mul) ADD_PARAM(0, multiplier) ADD_PARAM(0, coefficient) ADD_PARAM(0, gain),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
+  delay,
+  ADD_NAME(Delay) ADD_NAME(Delayer),
+  ADD_PARAM(0, dly) ADD_PARAM(0, delay) ADD_PARAM(0, steps) ADD_PARAM(1, mix),
+  ADD_VIS(VI(0), VI(1))
+)
+
+ADD_FILTER(
+  drive,
+  ADD_NAME(Drive) ADD_NAME(Driver) ADD_NAME(OverDrive) ADD_NAME(OverDriver),
+  ADD_PARAM(0, thr) ADD_PARAM(0, threshold) ADD_PARAM(1, mix),
+  ADD_VIS(VI(0),
+  VI(1))
+)
+
+ADD_FILTER(
+  compress,
+  ADD_NAME(Compress) ADD_NAME(Compressor),
+  ADD_PARAM(0, rat) ADD_PARAM(0, ratio) ADD_PARAM(1, thr) ADD_PARAM(1, threshold) ADD_PARAM(2, atk) ADD_PARAM(2, attack) ADD_PARAM(3, mix),
+  ADD_VIS(VI(0), VI(1), VI(2), VI(3))
+)
+
+ADD_FILTER(
+  auto_wah,
+  ADD_NAME(AutoWah) ADD_NAME(AutomaticWah),
+  ADD_PARAM(0, atk) ADD_PARAM(0, attack),
+  ADD_VIS(VI(0))
+)
+
+ADD_FILTER(
+  harmonize,
+  ADD_NAME(Harmonize) ADD_NAME(Harmonizer) ADD_NAME(Octave),
+  ADD_PARAM(0, uni) ADD_PARAM(0, unities) ADD_PARAM(0, semitones) ADD_PARAM(1, mix),
+  ADD_VIS(VI(0), VI(1))
+)
+

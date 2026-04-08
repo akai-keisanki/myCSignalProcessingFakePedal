@@ -15,14 +15,14 @@ ADD_FILTER(
 ADD_FILTER(
   low_pass,
   ADD_NAME(LowPass) ADD_NAME(HighCut),
-  ADD_PARAM(0, cut) ADD_PARAM(0, high_cut),
+  ADD_PARAM(0, cut) ADD_PARAM(0, hcut) ADD_PARAM(0, high_cut),
   ADD_VIS(VI(0))
 )
 
 ADD_FILTER(
   high_pass,
   ADD_NAME(HighPass) ADD_NAME(LowCut),
-  ADD_PARAM(0, cut) ADD_PARAM(0, low_cut),
+  ADD_PARAM(0, cut) ADD_PARAM(0, lcut) ADD_PARAM(0, low_cut),
   ADD_VIS(VI(0))
 )
 

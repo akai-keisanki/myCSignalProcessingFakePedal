@@ -2,11 +2,6 @@
 
 This project implements signal processing features in C for WAV files, emulating a pedalboard.
 
-> [!WARNING]
-> This project is recently changing a lot. This description is being updated. It is recommended to use only the main branch.
->
-> If you want to use this version, try running `fake_pedal help`. This README is probably not up-to-date.
-
 ## Setup
 
 ### Requirements
@@ -52,7 +47,6 @@ make fake_pedal
 
 The filter input options are:
 
-- `s`: read from a following filter string, which is explained in the next usage section.
 - `f`: read from a following file (name) with the FPFDSL[^1] format.
 
 The IO options are:
@@ -64,86 +58,93 @@ You can get a brief description of the command line structure with `fake_pedal h
 
 ### Using Filters
 
-#### Filter List Strings
+#### Available filters
 
-For filter list strings, each filter is represented by its character immediately followed by 1-2 4-digit numeric values. They are listed in order of application.
+- `multiply`
+  - FPFDSL Identifiers: `Multiply`, `Multiplier`, `Gain`
+  - Parameters:
+    - `mul`/`multiplier`/`coefficient`/`gain`
 
-Here is a simple list of the currently available filters:
+- `clip`
+  - FPFDSL Identifiers: `Clip`, `Clipper`, `HardClip`, `HardClipper`
+  - Parameters:
+    - `thr`/`threshold` as a fraction of the total signal
 
-- `multiply`: Type `M` followed by a 4-digit value representing the percent of the multiplier applied to the signal.
+- `low_pass`
+  - FPFDSL Identifiers: `LowPass`, `HighCut`
+  - Parameters:
+    - `cut`/`hcut`/`high_cut` as a fraction
 
-- `clip`: Type `C` followed by a 4-digit value representing the per ten thousand of the maximum signal (`1.0`) that should be the new maximum (and negative minimum), clipping higher values to it. It is automatically always used to clip the output to `1.0` after all operations.
+- `high_pass`
+  - FPFDSL Identifiers: `HighPass`, `LowCut`
+  - Parameters:
+    - `cut`/`lcut`/`low_cut` as a fraction
 
-- `low_pass`: Type `l` followed by a 4-digit value representing the per ten thousand of the high cut coefficient.
+- `mid_scoop`
+  - FPFDSL Identifiers: `MidScoop`, `MidScooper`
+  - Parameters:
+    - `lcut`/`low_cut` as a fraction
+    - `hcut`/`high_cut` as a fraction
 
-- `high_pass`: Type `h` followed by a 4-digit value representing the per ten thousand of the low cut coefficient.
+- `bit_crush`
+  - FPFDSL Identifiers: `BitCrush`, `BitCrusher`, `LoFi`
+  - Parameters:
+    - `res`/`resolution`/`crush` as an ammount of bits
 
-- `mid_scoop`: Type `m` followed by 2 4-digit values representing the per ten thousand of the low and high cut coefficients.
+- `pitch_shift` (BETA)
+  - FPFDSL Identifiers: `PitchShift`, `PitchShifter`
+  - Parameters:
+    - `uni`/`unities`/`semitones` as an integer
 
-- `pitch_shift` (BETA): Type `P` followed by a digit representing the signal (`0` for `+`, `1` or other for `-`) and 3 digits representing the per ten of the number of semitones to shift.
+- `saturate`
+  - FPFDSL Identifiers: `Saturate`, `Saturator`
+  - Parameters:
+    - `mul`/`multiplier`/`coefficient`/`gain`
 
-- `saturate`: Type `S` followed by a 4-digit value representing the percent of the multiplier applied to the signal that is saturated with the hyperbolic tangent.
+- `delay`
+  - FPFDSL Identifiers: `Delay`, `Delayer`
+  - Parameters:
+    - `dly`/`delay`/`steps` as an unsigned integer
+    - `mix`
 
-- `delay`: Type `d` followed by 2 4-digit values representing the number of steps (that will be multiplied by 10) to be delayed and the per ten thousand of the multiplicator to be applied to the delayed signal to be summed.
+- `drive`
+  - FPFDSL Identifiers: `Drive`, `Driver`, `OverDrive`, `OverDriver`
+  - Parameters:
+    - `thr`/`threshold` as a fraction of the total signal
+    - `mix`
 
-- `distortion`: Type `D` followed by a 4-digit value representing the per ten thousand of the maximum signal (`1.0`) that should be the new maximum (and negative minimum), clipping higher values to it and blending with the signal.
+- `compress`
+  - FPFDSL Identifiers: `Compress`, `Compressor`
+  - Parameters:
+    - `rat`/`ratio` (positive for downwards, negative for upwards)
+    - `thr`/`threshold` as a fraction of the total signal
+    - `atk`/`attack` as a fraction (higher imples quicker changes)
+    - `mix`
 
-- `compress`: Type `c` followed by a 2 4-digit values representing the per ten thousand of the filter's attack (how much the new signal affects how loud it is considered) to calculate the gain and the per ten thousand of the mix.
+- `auto_wah`
+  - FPFDSL Identifiers: `AutoWah`, `AutomaticWah`
+  - Parameters:
+    - `atk`/`attack` as a fraction (higher imples quicker changes)
 
-- `auto_wah`: Type `W` followed by a 4-digit value representing the per ten thousand of the filter's attack (how much the new signal affects how loud it is considered) to calculate the wah.
-
-- `harmonize`: Type `H` followed by 2 4-digit values: the first is a digit representing the signal (`0` for `+`, `1` or other for `-`) and 3 digits representing the per ten of the number of semitones to shift to the added signal and the second is the per ten thousand of the multiplicator to be applied to the shifted signal to be summed.
-
-> [!TIP]
-> Characters without use such as `-`, `,` or `.` can be used as separators.
-
-Here are some example filter list strings that you can try:
-
-- Fuzz: `S0300,C0300,M0150,l1500`;
-- Warm tone: `M0150,d04003333,l0200,m01000300`;
-- Nasal drive: `S0300,l0700,h0700,D05005000`;
-- Lo-fi tone: `h0600,l0900,S0150,C1000`;
-- Warm drive: `l2000,S0150,D08005000,m02000700`;
-- Bigger impression: `H10125000,S0150,m02000200,d03001000`;
-- Hard drive: `d00208000,c05003000,S0300,l2000,C0300,M0200,l1500`;
+- `harmonize` (BETA)
+  - FPFDSL Identifiers: `Harmonize`, `Harmonizer`, `Octave`
+  - Parameters:
+    - `uni`/`unities`/`semitones` as an integer
+    - `mix`
 
 #### FPFDSL[^1]
 
 The FPFDSL is a straightfoward and visual format where every name, value or delimiter -- some element -- is represented by a string separated by spaces from the other elements.
 
-It's details will not be covered by this description, but some examples are available in this repository:
-- [Fuzz](fpfdsl_examples/fuzz.fpfdsl)
-- [Warm tone](fpfdsl_examples/warm_tone.fpfdsl)
-- [Hard drive](fpfdsl_examples/hard_drive.fpfdsl)
-
-[^1]: FPFDSL stands for Fake Pedal Filter Domain-Specific Language.
+It's details will not be covered by this description, but some examples are available in this repository in the [`fpfdsl_examples/`](fpfdsl_examples/) directory.
 
 ## Audio Examples
 
-You can check some example audio files and the resulting outputs from the usage of this software in this repository:
-
-Example 1
-- [Input](examples/example_1_input.wav)
-- [Output (`c07003333,S0222,C0300,M0200,l1500`)](examples/example_1_output_c07003333,S0222,C0300,M0200,l1500.wav)
-- [Output (`l2000,S0150,D08005000,m02000700`)](examples/example_1_output_l2000,S0150,D08005000,m02000700.wav)
-
-Example 2
-- [Input](examples/example_2_input.wav)
-- [Output (`l2000,S0150,D08005000,m02000700`)](examples/example_2_output_l2000,S0150,D08005000,m02000700.wav)
-- [Output (`S0300,d03005000,C0300,M0200,m02000200,l1500,M0200`)](examples/example_2_output_S0300,d03005000,C0300,M0200,m02000200,l1500,M0200.wav)
-- [Output (`c05003000,M0150,d04003333,l0200,m01000300`)](examples/example_2_output_c05003000,M0150,d04003333,l0200,m01000300.wav)
-
-Example 3
-- [Input](examples/example_3_input.wav)
-- [Output (`c01003000,S0300,l0700,h0700,D04003000,W0500`)](examples/example_3_output_c01003000,S0300,l0700,h0700,D04003000,W0500.wav)
-
-Example 4
-- [Input](examples/example_4_input.wav)
-- [Output (`c01007000,l1800,d20004000,D04002000`)](examples/example_4_output_c01007000,l1800,d20004000,D04002000.wav)
+You can check some example audio files and the resulting outputs from the usage of this software in this repository in the [`examples/`](examples/) directory.
 
 ## Extra: Adding your own filters
 
-In order to add your own filters, you must write a C function to proccess a signal and add the option in `filters/pedal.c` and then add it to the makefile in the filter listing and as a target.
+In order to add your own filters, you must write a `.c` and `.h` (e.g. `my_filter.c` and `my_filter.h`) in the [`filters/`](filters/) directory
 
 > [!WARNING]
 > **Custom filters are still a work in progress. It is not as flexible as it should be.**
@@ -151,3 +152,6 @@ In order to add your own filters, you must write a C function to proccess a sign
 ## Acknowledgements
 
 - This project utilizes [SoX (Sound eXchange)](https://sox.sourceforge.net) for high-performance live audio signal IO via command-line piping.
+
+
+[^1]: FPFDSL stands for Fake Pedal Filter Domain-Specific Language.

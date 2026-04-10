@@ -2,10 +2,6 @@ INPUT
 --> [Multiplier
       gain: dB 40
     ]
---> [Delayer
-      delay: 400
-      mix: %% 3333
-    ]
 --> [LowPass
       high_cut: % 2
       mix: % 75
@@ -14,6 +10,11 @@ INPUT
       low_cut: % 1
       high_cut: % 3
       mix: % 75
+    ]
+--> [Delayer
+      delay: 11000
+      feedback: % 60
+      mix: % 10
     ]
 --> [Compressor
       ratio: 2

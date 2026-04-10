@@ -1,0 +1,27 @@
+INPUT
+--> [Saturator
+      gain: dB 7
+    ]
+--> [Multiplier
+      gain: dB 35
+    ]
+--> [LowPass
+      high_cut: % 50
+    ]
+--> [OverDriver
+      threshold: % 130
+      mix: % 75
+    ]
+--> [Compressor
+      ratio: 5
+      threshold: dB -30
+      attack: % 5
+      mix: % 100
+    ]
+--> [Delayer
+      delay: 10000
+      mix: % 10
+    ]
+--> OUTPUT
+
+A big tone simulator that increases the volume with a slight overdrive and compresses the loud signal.

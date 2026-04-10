@@ -2,6 +2,15 @@
 
 This project implements signal processing features in C for WAV files, emulating a pedalboard.
 
+## Features
+
+- WAV audio file signal processing
+- Efficient live audio signal processing with PortAudio
+- 10+ available DSP filters
+- FPFDSL[^1] to store filter setups
+- 5+ example FPFDSL files
+- Support to custom DSP filters
+
 ## Setup
 
 ### Requirements
@@ -73,22 +82,26 @@ You can get a brief description of the command line structure with `fake_pedal h
   - FPFDSL Identifiers: `LowPass`, `HighCut`
   - Parameters:
     - `cut`/`hcut`/`high_cut` as a fraction
+    - `mix`
 
 - `high_pass`
   - FPFDSL Identifiers: `HighPass`, `LowCut`
   - Parameters:
     - `cut`/`lcut`/`low_cut` as a fraction
+    - `mix`
 
 - `mid_scoop`
   - FPFDSL Identifiers: `MidScoop`, `MidScooper`
   - Parameters:
     - `lcut`/`low_cut` as a fraction
     - `hcut`/`high_cut` as a fraction
+    - `mix`
 
 - `bit_crush`
   - FPFDSL Identifiers: `BitCrush`, `BitCrusher`, `LoFi`
   - Parameters:
     - `res`/`resolution`/`crush` as an ammount of bits
+    - `mix`
 
 - `pitch_shift` (BETA)
   - FPFDSL Identifiers: `PitchShift`, `PitchShifter`
@@ -99,6 +112,7 @@ You can get a brief description of the command line structure with `fake_pedal h
   - FPFDSL Identifiers: `Saturate`, `Saturator`
   - Parameters:
     - `mul`/`multiplier`/`coefficient`/`gain`
+    - `mix`
 
 - `delay`
   - FPFDSL Identifiers: `Delay`, `Delayer`

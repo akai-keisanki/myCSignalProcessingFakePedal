@@ -1,6 +1,6 @@
 INPUT
 --> [Delayer
-      delay: 500
+      delay: 410
       feedback: % 90
       mix: % 50
     ]

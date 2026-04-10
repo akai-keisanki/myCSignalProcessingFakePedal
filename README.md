@@ -51,7 +51,7 @@ The filter input options are:
 The IO options are:
 
 - `f`: process files. Must be followed by 2 arguments: the input and output proper WAV files.
-- `l`: process and play live audio with SoX.
+- `l`: process and play live audio with PortAudio.
 
 You can get a brief description of the command line structure with `fake_pedal help`.
 

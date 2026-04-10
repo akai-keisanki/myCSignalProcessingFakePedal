@@ -1,13 +1,20 @@
 INPUT
 --> [Delayer
-      delay: 10
-      mix: % 80
+      delay: 410
+      feedback: % 90
+      mix: % 50
     ]
 --> [Saturator
       gain: dB 9.5
+      mix: % 100
     ]
 --> [LowPass
-      high_cut: % 20
+      high_cut: % 10
+      mix: % 50
+    ]
+--> [LowPass
+      high_cut: % 40
+      mix: % 100
     ]
 --> [Multiplier
       gain: dB 15

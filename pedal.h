@@ -11,6 +11,8 @@ typedef int16_t sample_size;
 
 float apply_filters(float x, struct filter **filter_list);
 
-void pedal_in_files(FILE *output_wav, FILE *input_wav, struct filter **filter_list, bool flush);
+void pedal_in_files(FILE *output_wav, FILE *input_wav, struct filter **filter_list);
+
+void pedal_live(struct filter **filter_list);
 
 #endif

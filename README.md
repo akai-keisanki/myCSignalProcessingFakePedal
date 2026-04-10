@@ -6,9 +6,8 @@ This project implements signal processing features in C for WAV files, emulating
 
 ### Requirements
 
-- SoX (Sound eXchange): required for the live processing option.
-  - <https://sox.sourceforge.net>
-  - Install via `sudo apt install sox` for Debian/Ubuntu or `brew install sox` for macOS.
+- PortAudio: required for the live processing option.
+  - Install via `sudo apt install portaudio19-dev` for Debian/Ubuntu.
 
 ### Compiling The Project
 
@@ -149,10 +148,6 @@ In order to add your own filters, you must write `.c` and `.h` files (e.g. `my_f
 Your filter's `.h` file must include `util_filter_base.h` and define a `struct filter *init_filter_my_filter(...)` (where `my_filter` must be named the same your files) function that takes the filter's parameters as arguments.
 
 The `.def` files have an own structure that must be followed. Check the other listed filters there for more detail.
-
-## Acknowledgements
-
-- This project utilizes [SoX (Sound eXchange)](https://sox.sourceforge.net) for high-performance live audio signal IO via command-line piping.
 
 
 [^1]: FPFDSL stands for Fake Pedal Filter Domain-Specific Language.

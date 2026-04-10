@@ -62,7 +62,7 @@ void process_file(FILE *log, struct filter **filter_list, const char *input_file
   
 
   fprintf(log, "Beginning filter application from %s to %s...\n", input_file, output_file);
-  pedal_in_files(output_wav, input_wav, filter_list, false);
+  pedal_in_files(output_wav, input_wav, filter_list);
   fprintf(log, "Finished filter application from %s to %s.\n", input_file, output_file);
 
 
@@ -79,30 +79,9 @@ void process_file(FILE *log, struct filter **filter_list, const char *input_file
 
 void process_live(FILE *log, struct filter **filter_list)
 {
-  FILE *input_wav;
-  FILE *output_wav;
-
-  input_wav = popen("sox -d -q -c 1 -r 44100 -b 16 -e signed-integer -t raw -", "r");
-  if (!input_wav)
-  {
-    fputs("Failed opening input pipe.", log);
-    return;
-  }
-
-  output_wav = popen("play -q -c 1 -r 44100 -b 16 -e signed-integer -t raw -", "w");
-  if (!output_wav)
-  {
-    fputs("Failed opening output pipe.", log);
-    return;
-  }
-
-  setvbuf(input_wav, NULL, _IONBF, 0);
-  setvbuf(output_wav, NULL, _IONBF, 0);
-
-  pedal_in_files(output_wav, input_wav, filter_list, true);
-
-  pclose(input_wav);
-  pclose(output_wav);
+  fputs("Starting live audio processing.\n", log);
+  pedal_live(filter_list);
+  fputs("Ending live audio processing.\n", log);
 }
 
 int32_t main(int32_t argc, const char **argv)

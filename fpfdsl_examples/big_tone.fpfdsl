@@ -1,6 +1,6 @@
 INPUT
 --> [Saturator
-      gain: dB 7
+      gain: dB 10
     ]
 --> [Multiplier
       gain: dB 35
@@ -9,13 +9,13 @@ INPUT
       high_cut: % 50
     ]
 --> [OverDriver
-      threshold: % 130
-      mix: % 75
+      threshold: % 140
+      mix: % 70
     ]
 --> [Compressor
       ratio: 5
       threshold: dB -30
-      attack: % 5
+      attack: %% 3333
       mix: % 100
     ]
 --> [Delayer

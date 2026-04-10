@@ -5,6 +5,6 @@
 
 float high_pass(struct filter *self, float x);
 
-struct filter *init_filter_high_pass(float cut);
+struct filter *init_filter_high_pass(float cut, float mix);
 
 #endif

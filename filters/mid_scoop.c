@@ -7,6 +7,9 @@ float mid_scoop(struct filter *self, float x)
 {
   float low_cut = get_param(self, 0);
   float high_cut = get_param(self, 1);
+  float mix = get_param(self, 2);
+
+  set_param(self, 1, 1.0f);
 
   float y = high_pass(self, x);
 
@@ -21,13 +24,14 @@ float mid_scoop(struct filter *self, float x)
   p_lp_y = get_static_val(self, 0);
 
   set_param(self, 0, low_cut);
+  set_param(self, 1, high_cut);
   set_static_val(self, 0, p_hp_y);
   set_static_val(self, 1, p_lp_y);
 
-  return y;
+  return (y - x) * mix + x;
 }
 
-struct filter *init_filter_mid_scoop(float low_cut, float high_cut)
+struct filter *init_filter_mid_scoop(float low_cut, float high_cut, float mix)
 {
-  return init_filter("mid_scoop", mid_scoop, (params_t){low_cut, high_cut}, (params_t){0.0f, 0.0f}, 0);
+  return init_filter("mid_scoop", mid_scoop, (params_t){low_cut, high_cut, mix}, (params_t){0.0f, 0.0f}, 0);
 }

@@ -1,6 +1,7 @@
 INPUT
 --> [Saturator
-      gain: dB 9.5
+      gain: dB 10
+      mix: % 90
     ]
 --> [Multiplier
       gain: dB 15
@@ -13,6 +14,7 @@ INPUT
     ]
 --> [LowPass
       high_cut: % 15
+      mix: % 100
     ]
 --> OUTPUT
 

@@ -5,6 +5,6 @@
 
 float mid_scoop(struct filter *self, float x);
 
-struct filter *init_filter_mid_scoop(float low_cut, float high_cut);
+struct filter *init_filter_mid_scoop(float low_cut, float high_cut, float mix);
 
 #endif

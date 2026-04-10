@@ -3,6 +3,7 @@
 float low_pass(struct filter *self, float x)
 {
   float cut = get_param(self, 0);
+  float mix = get_param(self, 1);
   float p_y = get_static_val(self, 0);
 
   float y = p_y + (x - p_y) * cut;
@@ -10,10 +11,10 @@ float low_pass(struct filter *self, float x)
 
   set_static_val(self, 0, p_y);
 
-  return y;
+  return (y - x) * mix + x;
 }
 
-struct filter *init_filter_low_pass(float cut)
+struct filter *init_filter_low_pass(float cut, float mix)
 {
-  return init_filter("low_pass", low_pass, (params_t){cut}, (params_t){0.0f}, 0);
+  return init_filter("low_pass", low_pass, (params_t){cut, mix}, (params_t){0.0f}, 0);
 }

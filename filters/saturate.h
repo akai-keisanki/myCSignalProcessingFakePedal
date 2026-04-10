@@ -5,6 +5,6 @@
 
 float saturate(struct filter *self, float x);
 
-struct filter *init_filter_saturate(float mul);
+struct filter *init_filter_saturate(float mul, float mix);
 
 #endif

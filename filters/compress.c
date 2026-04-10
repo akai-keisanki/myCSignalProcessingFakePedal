@@ -28,7 +28,9 @@ float compress(struct filter *self, float x)
 
   set_static_val(self, 0, env);
 
-  return x * gain * mix + x * (1.0f - mix);
+  float y = x * gain;
+
+  return (y - x) * mix + x;
 }
 
 struct filter *init_filter_compress(float rat, float thr, float atk, float mix)

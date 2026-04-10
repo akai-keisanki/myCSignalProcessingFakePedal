@@ -1,12 +1,15 @@
 INPUT
 --> [HighPass
       low_cut: % 6
+      mix: % 100
     ]
 --> [LowPass
       high_cut: % 9
+      mix: % 100
     ]
 --> [Saturator
       gain: dB 3.5
+      mix: % 100
     ]
 --> [OverDriver
       threshold: dB -40
@@ -17,6 +20,7 @@ INPUT
     ]
 --> [BitCrusher
       resolution: 7.2
+      mix: % 80
     ]
 --> [Compressor
       ratio: 2

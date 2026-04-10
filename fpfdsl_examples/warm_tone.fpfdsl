@@ -3,13 +3,13 @@ INPUT
       gain: dB 40
     ]
 --> [LowPass
-      high_cut: % 2
-      mix: % 75
+      high_cut: %% 50
+      mix: % 80
     ]
 --> [MidScooper
-      low_cut: % 1
-      high_cut: % 3
-      mix: % 75
+      low_cut: % 3
+      high_cut: % 1
+      mix: % 60
     ]
 --> [Delayer
       delay: 11000

@@ -8,7 +8,7 @@ TARGET = fake_pedal
 
 CC = cc
 
-LINKER_FLAGS = -lm
+LINKER_FLAGS = -lm -lportaudio
 
 $(TARGET): $(ROOT_OBJS) $(FILTERS_OBJS)
 	$(CC) -o $(TARGET) $(ROOT_OBJS) $(FILTERS_OBJS) $(LINKER_FLAGS)

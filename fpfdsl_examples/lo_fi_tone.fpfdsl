@@ -1,4 +1,10 @@
 INPUT
+--> [Compressor
+      ratio: -2
+      threshold: dB -20
+      attack: % 50
+      mix: % 50
+    ]
 --> [HighPass
       low_cut: % 6
       mix: % 100
@@ -8,24 +14,24 @@ INPUT
       mix: % 100
     ]
 --> [Saturator
-      gain: dB 3.5
+      gain: dB 10
       mix: % 100
     ]
 --> [OverDriver
       threshold: dB -40
-      mix: % 20
+      mix: % 40
     ]
 --> [Multiplier
-      gain: dB 5
+      gain: dB 10
     ]
 --> [BitCrusher
-      resolution: 7.2
-      mix: % 80
+      resolution: 9
+      mix: % 50
     ]
 --> [Compressor
-      ratio: 2
-      threshold: dB -10
-      attack: % 5
+      ratio: 3
+      threshold: dB -20
+      attack: % 50
       mix: % 70
     ]
 --> OUTPUT

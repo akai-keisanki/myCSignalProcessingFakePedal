@@ -137,10 +137,6 @@ The FPFDSL is a straightfoward and visual format where every name, value or deli
 
 It's details will not be covered by this description, but some examples are available in this repository in the [`fpfdsl_examples/`](fpfdsl_examples/) directory.
 
-## Audio Examples
-
-You can check some example audio files and the resulting outputs from the usage of this software in this repository in the [`examples/`](examples/) directory.
-
 ## Extra: Adding your own filters
 
 In order to add your own filters, you must write `.c` and `.h` files (e.g. `my_filter.c` and `my_filter.h`) in the [`filters/`](filters/) directory and update the [`filters/filter_includes.def`](filters/filter_includes.def) and [`filters/available_filters.def`](filters/available_filters.def) files with the filter's information.

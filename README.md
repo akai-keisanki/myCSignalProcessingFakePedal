@@ -1,4 +1,6 @@
-# myCSignalProcessingFakePedal
+# ![`fake_fedal` logo](img/fake_pedal_icon.png) myCSignalProcessingFakePedal
+![release](https://img.shields.io/github/v/release/akai-keisanki/myCSignalProcessingFakePedal)
+![top language](https://img.shields.io/github/languages/top/akai-keisanki/myCSignalProcessingFakePedal)
 
 This project implements signal processing features in C for WAV files, emulating a pedalboard.
 

@@ -10,12 +10,12 @@ This project implements signal processing features in C for WAV files, emulating
 
 ## Features
 
-- WAV audio file signal processing
-- Efficient live audio signal processing with PortAudio
-- 10+ available DSP filters
-- FPFDSL[^1] to store filter setups
-- 5+ example FPFDSL files
-- Support to custom DSP filters
+- WAV audio file signal processing;
+- Efficient live audio signal processing with PortAudio;
+- 10+ available DSP filters;
+- FPFDSL[^1] to store filter setups;
+- 5+ example FPFDSL files;
+- Support to custom DSP filters;
 
 ## Setup
 
@@ -70,9 +70,13 @@ The IO options are:
 
 You can get a brief description of the command line structure with `fake_pedal help`.
 
-### Using Filters
+### FPFDSL[^1]
 
-#### Available filters
+The FPFDSL[^1] is a straightfoward and visual format where every name, value or delimiter -- some element -- is represented by a string separated by spaces from the other elements, defining combinations of filters and their settings to store custom tones.
+
+It's details will not be covered by this description, but some examples are available in this repository in the [`fpfdsl_examples/`](fpfdsl_examples/) directory so that you can check the syntax and use the following [available filter list](#available-filters) to write your own setups.
+
+## Available filters
 
 - `multiply`
   - FPFDSL Identifiers: `Multiply`, `Multiplier`, `Gain`
@@ -151,12 +155,6 @@ You can get a brief description of the command line structure with `fake_pedal h
     - `uni`/`unities`/`semitones` as an integer
     - `mix`
 
-#### FPFDSL[^1]
-
-The FPFDSL is a straightfoward and visual format where every name, value or delimiter -- some element -- is represented by a string separated by spaces from the other elements.
-
-It's details will not be covered by this description, but some examples are available in this repository in the [`fpfdsl_examples/`](fpfdsl_examples/) directory.
-
 ## Extra: Adding your own filters
 
 In order to add your own filters, you must write `.c` and `.h` files (e.g. `my_filter.c` and `my_filter.h`) in the [`filters/`](filters/) directory and update the [`filters/filter_includes.def`](filters/filter_includes.def) and [`filters/available_filters.def`](filters/available_filters.def) files with the filter's information.
@@ -166,4 +164,4 @@ Your filter's `.h` file must include `util_filter_base.h` and define a `struct f
 The `.def` files have an own structure that must be followed. Check the other listed filters there for more detail.
 
 
-[^1]: FPFDSL stands for Fake Pedal Filter Domain-Specific Language.
+[^1]: FPFDSL stands for Fake Pedal Filter Domain-Specific Language. (vid. [FPFDSL](#fpfdsl1))

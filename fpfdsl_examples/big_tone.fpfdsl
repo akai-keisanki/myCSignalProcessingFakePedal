@@ -2,14 +2,7 @@ INPUT
 --> [Delayer
       delay: 400
       feedback: % 70
-      mix: % 10
-    ]
---> [Saturator
-      gain: dB 10
-      mix: % 90
-    ]
---> [Multiplier
-      gain: dB 35
+      mix: % 5
     ]
 --> [LowPass
       high_cut: % 40
@@ -19,16 +12,16 @@ INPUT
       high_cut: % 30
       mix: % 30
     ]
---> [OverDriver
-      threshold: % 140
-      mix: % 80
+--> [Saturator
+      gain: dB 6
+      mix: % 50
     ]
 --> [Multiplier
-      gain: dB 10
+      gain: dB 60
     ]
 --> [Compressor
-      ratio: 5
-      threshold: dB -35
+      ratio: 10
+      threshold: % 1
       attack: %% 3333
       mix: % 100
     ]
@@ -36,6 +29,9 @@ INPUT
       delay: 12000
       feedback: % 50
       mix: % 20
+    ]
+--> [Multiplier
+      gain: dB 6
     ]
 --> OUTPUT
 

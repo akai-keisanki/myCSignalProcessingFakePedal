@@ -1,0 +1,23 @@
+INPUT
+--> [Saturator
+      gain: dB 20
+      mix: % 80
+    ]
+--> [LowPass
+      cut: % 80
+      mix: % 80
+    ]
+--> [HighPass
+      cut: % 15
+      mix: %% 6666
+    ]
+--> [OverDriver
+      threshold: % 5
+      mix: % 30
+    ]
+--> [AutoWah
+      attack: % 30
+    ]
+--> OUTPUT
+
+Nasal drive simulator.

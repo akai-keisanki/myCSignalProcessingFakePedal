@@ -49,7 +49,7 @@ bool fpfdsl_read_param(FILE *log, FILE *file, const char *exp, float *target, co
       if (!fpfdsl_str_safe_read(file, exp2))
       {
 	fputs("File ended earlier than expected!", log);
-	return NULL;
+	return false;
       }
 
       if (fscanf(file, "%f", target) <= 0)
@@ -107,18 +107,16 @@ struct filter *interpret_fpfdsl_filter(FILE *log, FILE *file)
   return NULL;
 }
 
-struct filter **interpret_fpfdsl_file(FILE *log, const char *filter_file_name)
+void interpret_fpfdsl_file(FILE *log, struct filter **filters, size_t *current_size, const char *filter_file_name)
 {
-  struct filter **filters = malloc(sizeof(struct filter *) * MAX_FILTERS_SIZE);
-
   FILE *file = fopen(filter_file_name, "r");
   if (!file)
   {
     fprintf(log, "Failed opening \"%s\".\n", filter_file_name);
-    return NULL;
+    return;
   }
 
-  size_t i = 0;
+  size_t i = *current_size;
   char exp[FPFDSL_MAX_STR_SIZE];
 
   while (fpfdsl_str_safe_read(file, exp) && i < MAX_FILTERS_SIZE - 2)
@@ -138,8 +136,24 @@ struct filter **interpret_fpfdsl_file(FILE *log, const char *filter_file_name)
 
   filters[i] = NULL;
 
-  fclose(file);
+  *current_size = i;
 
+  fclose(file);
+}
+
+struct filter **interpret_fpfdsl_files(FILE *log, const char **filter_file_names, const size_t file_amount)
+{
+  struct filter **filters = malloc(sizeof(struct filter *) * MAX_FILTERS_SIZE);
+  size_t current_size = 0;
+
+  filters[current_size] = NULL;
+
+  for (size_t i = 0; i < file_amount; ++i)
+    interpret_fpfdsl_file(log, filters, &current_size, filter_file_names[i]);
+
+  if (filters[0] == NULL)
+    return NULL;
+  
   return filters;
 }
 

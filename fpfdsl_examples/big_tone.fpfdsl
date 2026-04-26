@@ -21,7 +21,7 @@ INPUT
     ]
 --> [Compressor
       ratio: 10
-      threshold: % 1
+      threshold: % 7
       attack: %% 3333
       mix: % 100
     ]
@@ -31,7 +31,7 @@ INPUT
       mix: % 20
     ]
 --> [Multiplier
-      gain: dB 6
+      gain: dB 3
     ]
 --> OUTPUT
 

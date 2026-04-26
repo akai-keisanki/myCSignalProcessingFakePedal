@@ -7,7 +7,7 @@ INPUT
       gain: dB 15
     ]
 --> [HardClipper
-      threshold: dB -40
+      threshold: dB -30
     ]
 --> [Multiplier
       gain: dB 20

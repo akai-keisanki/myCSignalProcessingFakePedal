@@ -1,6 +1,6 @@
 INPUT
 --> [Multiplier
-      gain: dB 40
+      gain: dB 30
     ]
 --> [LowPass
       high_cut: % 5
@@ -17,9 +17,12 @@ INPUT
     ]
 --> [Compressor
       ratio: 2
-      threshold: dB -30
+      threshold: dB -25
       attack: % 5
       mix: % 70
+    ]
+--> [Multiplier
+      gain: dB 4
     ]
 --> OUTPUT
 

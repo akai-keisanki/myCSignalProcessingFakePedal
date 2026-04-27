@@ -4,16 +4,16 @@ INPUT
       mix: % 90
     ]
 --> [Multiplier
-      gain: dB 15
+      gain: dB 40
     ]
 --> [HardClipper
       threshold: dB -30
     ]
 --> [Multiplier
-      gain: dB 20
+      gain: dB 12
     ]
 --> [LowPass
-      high_cut: % 15
+      high_cut: % 60
       mix: % 100
     ]
 --> OUTPUT

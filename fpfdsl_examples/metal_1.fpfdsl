@@ -1,0 +1,32 @@
+INPUT
+--> [HighPass
+      low_cut: % 8
+      mix: % 100
+    ]
+--> [LowPass
+      high_cut: % 30
+      mix: % 80
+    ]
+--> [HighPass
+      low_cut: % 10
+      mix: % 80
+    ]
+--> [Multiplier
+      gain: dB 50
+    ]
+--> [Compressor
+      ratio: 20
+      threshold: % 10
+      attack: % 90
+      mix: % 100
+    ]
+--> [Multiplier
+      gain: dB 12
+    ]
+--> [LowPass
+      high_cut: % 80
+      mix: % 100
+    ]
+--> OUTPUT
+
+Simple fuzz simulator.

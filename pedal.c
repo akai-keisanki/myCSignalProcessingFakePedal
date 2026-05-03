@@ -65,6 +65,43 @@ signed int pedal_callback(
   return paContinue;
 }
 
+void pedal_live_loop(struct filter **filter_list)
+{
+  char c;
+  size_t id;
+
+  puts("Input \"q\" to stop or "h" for help.");
+
+  while ((c = getchar()) != 'q')
+  {
+    switch (c)
+    {
+    case 'h':
+      puts("Input \"l\" to list current loaded filters");
+      puts("Input \"r FILTER_ID\" to remove all filters with ID >= FILTER_ID");
+      puts("Input \"e FILTER_ID\" to edit a filter by ID");
+      puts("Input \"a\" followed by a filter in FPFDSL to add a filter");
+      break;
+    case 'l':
+      printf("%6s %10s\n", "id", "filter_label");
+      for (size_t i = 0; filter_list[i]; ++i)
+        printf("%6lu %10s\n", i, get_filter_label(filter_list[i]));
+      break;
+    case 'r':
+      scanf("%s", id);
+      filter_list[i] = NULL;
+      break;
+    case 'e':
+      scanf("%s", id);
+      // ...
+      break;
+    case 'a':
+      // ...
+      break;
+    }
+  }
+}
+
 void pedal_live(struct filter **filter_list)
 {
   PaStream *stream;
@@ -85,8 +122,7 @@ void pedal_live(struct filter **filter_list)
 
   Pa_StartStream(stream);
   
-  puts("Press ENTER to stop.");
-  getchar();
+  pedal_live_loop();
 
   Pa_StopStream(stream);
   Pa_CloseStream(stream);

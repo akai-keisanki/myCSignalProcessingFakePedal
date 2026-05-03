@@ -1,0 +1,48 @@
+INPUT
+--> [Multiplier
+      gain: dB 15
+    ]
+--> [HighPass
+      low_cut: % 1
+      mix: % 100
+    ]
+--> [HighPass
+      low_cut: % 30
+      mix: % 50
+    ]
+--> [Multiplier
+      gain: dB 7
+    ]
+--> [LowPass
+      high_cut: % 12
+      mix: % 80
+    ]
+--> [LowPass
+      high_cut: % 3
+      mix: % 70
+    ]
+--> [Multiplier
+      gain: dB 12
+    ]
+--> [MidScoop
+      low_cut: % 30
+      high_cut: % 40
+      mix: % 40
+    ]
+--> [Compressor
+      ratio: 2
+      threshold: dB -20
+      attack: %% 1
+      mix: % 70
+    ]
+--> [Delayer
+      delay: 11000
+      feedback: % 80
+      mix: % 10
+    ]
+--> [Multiplier
+      gain: dB 5
+    ]
+--> OUTPUT
+
+Jazzy tone simulator.

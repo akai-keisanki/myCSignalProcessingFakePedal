@@ -1,15 +1,15 @@
 INPUT
 --> [HighPass
-      low_cut: % 8
+      low_cut: % 10
       mix: % 100
     ]
 --> [LowPass
-      high_cut: % 30
+      high_cut: % 20
       mix: % 80
     ]
 --> [HighPass
-      low_cut: % 10
-      mix: % 80
+      low_cut: % 15
+      mix: % 50
     ]
 --> [Multiplier
       gain: dB 50
@@ -24,7 +24,7 @@ INPUT
       gain: dB 12
     ]
 --> [LowPass
-      high_cut: % 80
+      high_cut: % 70
       mix: % 100
     ]
 --> OUTPUT

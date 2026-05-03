@@ -31,7 +31,7 @@ INPUT
       mix: % 20
     ]
 --> [Multiplier
-      gain: dB 3
+      gain: dB 10
     ]
 --> OUTPUT
 

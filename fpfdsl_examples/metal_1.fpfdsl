@@ -1,0 +1,29 @@
+INPUT
+--> [LowPass
+      high_cut: % 50
+      mix: % 100
+    ]
+--> [HighPass
+      low_cut: % 15
+      mix: % 70
+    ]
+--> [Multiplier
+      gain: dB 40
+    ]
+--> [HighPass
+      low_cut: % 10
+      mix: % 100
+    ]
+--> [HardClipper
+      threshold: % 12
+    ]
+--> [Multiplier
+      gain: dB 14
+    ]
+--> [LowPass
+      high_cut: % 70
+      mix: % 100
+    ]
+--> OUTPUT
+
+Simple metal tone simulator.

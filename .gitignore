@@ -60,3 +60,6 @@ dkms.conf
 
 # other/security
 default
+
+# IDEs
+.idea/

@@ -1,0 +1,25 @@
+INPUT
+--> [Multiplier
+      gain: dB 40
+    ]
+--> [OverDrive
+      threshold: % 4
+      mix: % 50
+    ]
+--> [HighPass
+      low_cut: % 8
+      mix: % 30
+    ]
+--> [LowPass
+      high_cut: % 80
+      mix: % 100
+    ]
+--> [Compressor
+      ratio: 2
+      threshold: dB -30
+      attack: % 5
+      mix: % 70
+    ]
+--> OUTPUT
+
+Crunch simulator.

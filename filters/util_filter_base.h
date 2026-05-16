@@ -10,9 +10,11 @@ struct filter;
 struct filter *init_filter(char label[], float (*apply)(struct filter *self, float x), params_t params, params_t static_vals, size_t rec_size);
 void free_filter(struct filter *self);
 
-float get_param(struct filter *self, size_t i);
+const char *get_filter_label(const struct filter *self);
+
+float get_param(const struct filter *self, size_t i);
 void set_param(struct filter *self, size_t i, float v);
-float get_static_val(struct filter *self, size_t i);
+float get_static_val(const struct filter *self, size_t i);
 void set_static_val(struct filter *self, size_t i, float v);
 struct record_data *get_record_data(struct filter *self);
 

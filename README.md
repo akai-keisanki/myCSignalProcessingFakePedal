@@ -22,6 +22,7 @@ This project implements signal processing features in C for WAV files, emulating
 ### Requirements
 
 - PortAudio: required for the live processing option.
+  - Install via `sudo dnf install portaudio-devel` for Debian/Ubuntu.
   - Install via `sudo apt install portaudio19-dev` for Debian/Ubuntu.
 
 ### Compiling The Project

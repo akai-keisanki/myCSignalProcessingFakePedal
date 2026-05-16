@@ -1,0 +1,29 @@
+INPUT
+--> [Multiplier
+      gain: dB 40
+    ]
+--> [HighPass
+      low_cut: % 7
+      mix: % 60
+    ]
+--> [HighPass
+      low_cut: % 1
+      mix: % 60
+    ]
+--> [HighPass
+      low_cut: % 20
+      mix: % 70
+    ]
+--> [OverDrive
+      threshold: % 2
+      mix: % 50
+    ]
+--> [Compressor
+      ratio: 2
+      threshold: dB -30
+      attack: % 5
+      mix: % 70
+    ]
+--> OUTPUT
+
+Simple treble crunch simulator.

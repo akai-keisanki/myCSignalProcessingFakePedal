@@ -1,6 +1,8 @@
 #include <stdint.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
 #include "pedal.h"
 #include "filters/util_filter_base.h"
@@ -87,6 +89,8 @@ void process_live(FILE *log, struct filter **filter_list)
 int32_t main(int32_t argc, const char **argv)
 {
   FILE *log = stderr;
+  size_t in_count;
+  char *end_ptr;
 
   fputs("==========\nFake Pedal\n==========\n\n", log);
 
@@ -119,7 +123,30 @@ int32_t main(int32_t argc, const char **argv)
   switch (**argv++)
   {
   case 'f':
-    filter_list = interpret_fpfdsl_file(log, *argv);
+
+    errno = 0;
+    in_count = strtoul(*argv, &end_ptr, 10);
+
+    if (errno || *end_ptr)
+    {
+      filter_list = interpret_fpfdsl_files(log, argv, 1);
+      ++argv;
+      --argc;
+      break;
+    }
+
+    ++argv;
+    --argc;
+
+    if (argc < in_count)
+    {
+      puts("Filter list option f followed by number expects more input files.");
+      goto program_exit;
+    }
+
+    filter_list = interpret_fpfdsl_files(log, argv, in_count);
+    argv += in_count;
+    argc -= in_count;
     break;
 
   default:
@@ -131,9 +158,6 @@ int32_t main(int32_t argc, const char **argv)
   {
     goto program_exit;
   }
-
-  ++argv;
-  argc -= 2;
 
   if (argc)
     switch (**argv)

@@ -1,0 +1,31 @@
+INPUT
+--> [Multiplier
+      gain: dB 20
+    ]
+--> [Delayer
+      delay: 20000
+      feedback: % 70
+      mix: % 30
+    ]
+--> [Delayer
+      delay: 10000
+      feedback: % 70
+      mix: % 80
+    ]
+--> [HighPass
+      low_cut: % 8
+      mix: % 30
+    ]
+--> [LowPass
+      high_cut: % 80
+      mix: % 100
+    ]
+--> [Compressor
+      ratio: 2
+      threshold: dB -30
+      attack: % 10
+      mix: % 70
+    ]
+--> OUTPUT
+
+Crunch simulator.

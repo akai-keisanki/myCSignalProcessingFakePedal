@@ -36,13 +36,18 @@ struct filter *init_filter(char label[LABEL_SIZE], float (*apply)(struct filter 
   return self;
 }
 
+const char *get_filter_label(const struct filter *self)
+{
+  return self->label;
+}
+
 void free_filter(struct filter *self)
 {
   if (self->rec) free_record_data(self->rec);
   free(self);
 }
 
-float get_param(struct filter *self, size_t i)
+float get_param(const struct filter *self, size_t i)
 {
   i = i % (sizeof(params_t) / sizeof(float));
   return self->params[i];
@@ -54,7 +59,7 @@ void set_param(struct filter *self, size_t i, float v)
   self->params[i] = v;
 }
 
-float get_static_val(struct filter *self, size_t i)
+float get_static_val(const struct filter *self, size_t i)
 {
   i = i % (sizeof(params_t) / sizeof(float));
   return self->static_vals[i];

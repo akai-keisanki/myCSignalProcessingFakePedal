@@ -60,6 +60,8 @@ dkms.conf
 
 # other/security
 default
+]
+fake_pedal
 
 # IDEs
 .idea/

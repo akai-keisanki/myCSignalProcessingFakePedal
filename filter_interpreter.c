@@ -7,11 +7,8 @@
 
 #define STR(x) #x
 
-#include "filters/clip.h"
-
 #include "filters/filter_includes.def"
 
-#define MAX_FILTERS_SIZE (size_t)0x40
 #define FPFDSL_MAX_STR_SIZE (size_t)0xFF
 
 bool fpfdsl_str_safe_read(FILE *file, char *str)
@@ -125,7 +122,7 @@ void interpret_fpfdsl_file(FILE *log, struct filter **filters, size_t *current_s
     {
       if (!(filters[i++] = interpret_fpfdsl_filter(log, file)))
       {
-	filters[i - 1] = init_filter_clip(1.0f);
+	filters[i - 1] = NULL;
 	break;
       }
     }
@@ -133,8 +130,6 @@ void interpret_fpfdsl_file(FILE *log, struct filter **filters, size_t *current_s
     else
       fprintf(log, "Unexpected string \"%s\". Expected \"-->\" or \"INPUT\".\n", exp);
   }
-
-  filters[i] = NULL;
 
   *current_size = i;
 

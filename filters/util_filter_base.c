@@ -38,7 +38,7 @@ struct filter *init_filter(char label[LABEL_SIZE], float (*apply)(struct filter 
 
 const char *get_filter_label(const struct filter *self)
 {
-  return filter->label;
+  return self->label;
 }
 
 void free_filter(struct filter *self)

@@ -13,9 +13,10 @@ This project implements signal processing features in C for WAV files, emulating
 - WAV audio file signal processing;
 - Efficient live audio signal processing with PortAudio;
 - 10+ available DSP filters;
-- FPFDSL[^1] to store filter setups;
-- 5+ example FPFDSL files;
+- FPFDSL[^1] to store filter setups and load multiple of them;
+- 10+ example FPFDSL files;
 - Support to custom DSP filters;
+- Live processing interface for filter management;
 
 ## Setup
 
@@ -63,6 +64,7 @@ make fake_pedal
 The filter input options are:
 
 - `f`: read from a following file (name) with the FPFDSL[^1] format.
+- `c`: load no filters (clean).
 
 The IO options are:
 

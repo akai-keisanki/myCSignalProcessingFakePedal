@@ -79,6 +79,22 @@ signed int pedal_callback(
   return paContinue;
 }
 
+bool pedal_live_loop_check_id(struct filter **filter_list, size_t id)
+{
+  bool avl = false;
+
+  for (size_t n = 0; filter_list[n] && n < MAX_FILTERS_SIZE - 1; ++n)
+  {
+    if (n >= id)
+    {
+      avl = true;
+      break;
+    }
+  }
+
+  return avl;
+}
+
 void pedal_live_loop(struct filter **filter_list)
 {
   char c;
@@ -89,7 +105,7 @@ void pedal_live_loop(struct filter **filter_list)
 
   while (loop)
   {
-    fputs("\n:", stdout);
+    fputs("\nfake_pedal_live:", stdout);
     c = getchar();
 
     while (c == ' ' || c == '\n')
@@ -122,17 +138,7 @@ void pedal_live_loop(struct filter **filter_list)
     case '-':
       scanf("%zu", &id);
 
-      avl = false;
-      for (size_t n = 0; filter_list[n]; ++n)
-      {
-        if (n >= id)
-        {
-          avl = true;
-          break;
-        }
-      }
-
-      if (!avl)
+      if (!pedal_live_loop_check_id(filter_list, id))
         puts("ID not available");
       else
       {
@@ -151,20 +157,39 @@ void pedal_live_loop(struct filter **filter_list)
     case 'u':
     case '>':
       pthread_mutex_lock(&filter_list_mutex);
+
       scanf("%zu", &id);
-      free_filter(filter_list[id]);
-      filter_list[id] = interpret_fpfdsl_filter(stderr, stdin);
+
+      if (!pedal_live_loop_check_id(filter_list, id))
+        puts("ID not available");
+      else
+      {
+        free_filter(filter_list[id]);
+        filter_list[id] = interpret_fpfdsl_filter(stderr, stdin);
+      }
+
       pthread_mutex_unlock(&filter_list_mutex);
+
       break;
 
     case 'a':
     case 'c':
     case '+':
       pthread_mutex_lock(&filter_list_mutex);
+
       for (id = 0; filter_list[id]; ++id);
+
+      if (id > MAX_FILTERS_SIZE - 2)
+      {
+        puts("Too many filters.");
+        break;
+      }
+
       filter_list[id++] = interpret_fpfdsl_filter(stderr, stdin);
       filter_list[id] = NULL;
+
       pthread_mutex_unlock(&filter_list_mutex);
+
       break;
 
     case 'q':

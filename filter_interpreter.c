@@ -11,6 +11,15 @@
 
 #define FPFDSL_MAX_STR_SIZE (size_t)0xFF
 
+struct filter **init_clean_filter_list(void)
+{
+  struct filter **filters = malloc(sizeof(struct filter *) * MAX_FILTERS_SIZE);
+
+  filters[0] = NULL;
+  
+  return filters;
+}
+
 bool fpfdsl_str_safe_read(FILE *file, char *str)
 {
   signed int c;
@@ -138,10 +147,8 @@ void interpret_fpfdsl_file(FILE *log, struct filter **filters, size_t *current_s
 
 struct filter **interpret_fpfdsl_files(FILE *log, const char **filter_file_names, const size_t file_amount)
 {
-  struct filter **filters = malloc(sizeof(struct filter *) * MAX_FILTERS_SIZE);
+  struct filter **filters = init_clean_filter_list();
   size_t current_size = 0;
-
-  filters[current_size] = NULL;
 
   for (size_t i = 0; i < file_amount; ++i)
     interpret_fpfdsl_file(log, filters, &current_size, filter_file_names[i]);

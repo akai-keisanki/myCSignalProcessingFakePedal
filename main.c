@@ -14,14 +14,7 @@ void help_dialog(void)
   puts("  fake_pedal FILTER_LIST_OPTION FILTER_LIST_SOURCE [OPTION]");
   puts("\nFILTER LIST OPTIONS\n-------------------");
   puts("  - \"f FILE\": apply from a FPFDSL file.");
-  puts("\nFILTER LIST SRING\n-----------------");
-  puts("  Each filter is given in the format: \"xVVVV\" or \"xVVVVWWWW\"");
-  puts("  - \"x\" is the character which represents the filter to be applied");
-  puts("  - \"VVVV\" and \"WWWW\" are 4-digit numeric values.");
-  puts("  E.g.:");
-  puts("  - \"D0300\": soft clip with threshold = 0300;");
-  puts("  - \"d05003000\": delay with delay = 0300 and mix = 3000;");
-  puts("  - \"D0300d05003000\": soft clip followed by delay.");
+  puts("  - \"c\": init a clean filter list (without filters).");
   puts("\nOPTIONS\n-------");
   puts("  - \"f INPUT OUTPUT\": apply to a WAV, reading from \"INPUT\" and writing to \"OUTPUT\".");
   puts("  e.g. `fake_pedal ... f input.wav output.wav`");
@@ -123,7 +116,6 @@ int32_t main(int32_t argc, const char **argv)
   switch (**argv++)
   {
   case 'f':
-
     errno = 0;
     in_count = strtoul(*argv, &end_ptr, 10);
 
@@ -147,6 +139,10 @@ int32_t main(int32_t argc, const char **argv)
     filter_list = interpret_fpfdsl_files(log, argv, in_count);
     argv += in_count;
     argc -= in_count;
+    break;
+
+  case 'c':
+    filter_list = init_clean_filter_list();
     break;
 
   default:

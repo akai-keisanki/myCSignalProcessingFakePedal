@@ -7,6 +7,7 @@
 
 #define MAX_FILTERS_SIZE (size_t)0x40
 
+struct filter **init_clean_filter_list(void);
 struct filter *interpret_fpfdsl_filter(FILE *log, FILE *file);
 struct filter **interpret_fpfdsl_files(FILE *log, const char **filter_file_names, size_t file_amount);
 struct filter **interpret_filter_string(const char *filter_string);

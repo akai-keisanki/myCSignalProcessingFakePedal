@@ -79,6 +79,13 @@ The FPFDSL[^1] is a straightfoward and visual format where every name, value or 
 
 It's details will not be covered by this description, but some examples are available in this repository in the [`fpfdsl_examples/`](fpfdsl_examples/) directory so that you can check the syntax and use the following [available filter list](#available-filters) to write your own setups.
 
+### Live processing
+
+The live processing mode applies the filters to audio samples from the default audio input device and plays the processed samples on the default audio output device using a PortAudio callback.
+
+While running, a command-line user interface is used for typing commands such as stopping the live processing, listing the filters in use, adding filters, removing filters etc.
+It is recommended to type `h` or `?` and press Enter to get a list of the currently available commands and their input formats.
+
 ## Available filters
 
 - `multiply`

@@ -83,12 +83,22 @@ void pedal_live_loop(struct filter **filter_list)
 {
   char c;
   size_t id;
-  bool avl;
+  bool loop = true, avl;
 
-  puts("Input \"q\" to stop or \"h\" for help.");
+  puts("\nInput \"q\" to stop or \"h\" for help.");
 
-  while ((c = getchar()) != 'q' && c != '!')
+  while (loop)
   {
+    fputs("\n:", stdout);
+    c = getchar();
+
+    while (c == ' ' || c == '\n')
+      c = getchar();
+
+    putchar('\n');
+
+    fflush(stdout);
+
     switch (c)
     {
     case 'h':
@@ -157,8 +167,9 @@ void pedal_live_loop(struct filter **filter_list)
       pthread_mutex_unlock(&filter_list_mutex);
       break;
 
-    case ' ':
-    case '\n':
+    case 'q':
+    case '!':
+      loop = false;
       break;
 
     default:

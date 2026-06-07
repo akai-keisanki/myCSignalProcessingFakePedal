@@ -1,11 +1,11 @@
 INPUT
 --> [LowPass
-      high_cut: % 50
+      high_cut: % 60
       mix: % 100
     ]
 --> [HighPass
-      low_cut: % 15
-      mix: % 70
+      low_cut: % 20
+      mix: % 80
     ]
 --> [Multiplier
       gain: dB 20
@@ -14,13 +14,17 @@ INPUT
       low_cut: % 10
       mix: % 100
     ]
+--> [HighPass
+      low_cut: % 10
+      mix: % 90
+    ]
 --> [Multiplier
       gain: dB 14
     ]
 --> [LowPass
-      high_cut: % 70
+      high_cut: % 80
       mix: % 100
     ]
 --> OUTPUT
 
-Clean metal tone simulator.
+Simple metal tone simulator.

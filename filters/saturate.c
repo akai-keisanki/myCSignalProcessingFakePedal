@@ -8,7 +8,7 @@ float saturate(struct filter *self, float x)
 {
   float mix = get_param(self, 1);
 
-  float y = multiply(self, tanhf(multiply(self, x)));
+  float y = tanhf(multiply(self, x));
 
   return (y - x) * mix + x;
 }

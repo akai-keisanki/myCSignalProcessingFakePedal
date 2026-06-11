@@ -1,7 +1,10 @@
 INPUT
+--> [Multiplier
+      gain: dB 20
+    ]
 --> [LowPass
-      high_cut: % 60
-      mix: % 100
+      high_cut: % 70
+      mix: % 40
     ]
 --> [HighPass
       low_cut: % 15
@@ -14,17 +17,15 @@ INPUT
       low_cut: % 10
       mix: % 100
     ]
---> [Multiplier
+--> [Saturator
       gain: dB 30
-    ]
---> [HardClipper
-      threshold: % 15
+      mix: % 100
     ]
 --> [Multiplier
-      gain: dB 14
+      gain: dB -20
     ]
 --> [LowPass
-      high_cut: % 65
+      high_cut: % 80
       mix: % 100
     ]
 --> OUTPUT
